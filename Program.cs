@@ -10,28 +10,28 @@ Console.WriteLine(s);
 
 class Rectangle
 {
-	public int a, b;
+    public int a, b;
 
     public int Square()
     {
         return a * b;
     }
     // Конструктор 1
-	public Rectangle()
-	{
-		a = 6;
+    public Rectangle()
+    {
+        a = 6;
         b = 4;
-	}
-	// Конструктор 2
-	public Rectangle(int side)
-	{
-		a = side;
+    }
+    // Конструктор 2
+    public Rectangle(int side)
+    {
+        a = side;
         b = side;
-	}
-	// Конструктор 3
-	public Rectangle(int first, int second)
-	{
-		a = first;
+    }
+    // Конструктор 3
+    public Rectangle(int first, int second)
+    {
+        a = first;
         b = second;
-	}
+    }
 }
