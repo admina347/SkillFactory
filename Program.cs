@@ -1,43 +1,15 @@
 ﻿using System;
-class Circle
+class TrafficLight
 {
-	public double radius;
-
-	public double Square()
-	{
-        
-	}
-
-	public double Length()
-	{
-	}
-}
-
-class Triangle
-{
-	public int a, b, c;
-	public double Square()
-	{
-	}
-
-	public double Perimeter()
-	{
-	}
-}
-
-class Square
-{
-	public int side;
-
-	public double Sq()
-	{
-        return side^2;
-	}
-
-	public double Perimeter()
-	{
-        return side * 4;
-	}
+    string color;
+    private string ChangeColor(string c)
+    {
+        return c;
+    }
+    public string GetColor()
+    {
+        return color;
+    }
 }
 class Program
 {
