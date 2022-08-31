@@ -1,37 +1,39 @@
-﻿/* Класс должен содержать целочисленные поля для сторон a и b.
-Класс должен содержать метод Square, возвращающий площадь прямоугольника (произведение сторон).
-Класс должен содержать 3 конструктора: с 2 параметрами, когда a != b, с 1 параметром, когда a == b, 
-и конструктор без параметров по умолчанию, в котором стороны будут заполняться как a = 6, b = 4. */
-
-Rectangle Rectangle = new Rectangle(6);
-int s;
-s = Rectangle.Square();
-Console.WriteLine(s);
-
-class Rectangle
+﻿using System;
+class Company
 {
-    public int a, b;
+    public string Type;
+    public string Name;
+}
 
-    public int Square()
+class Department
+{
+    public Company Company;
+    public City City;
+}
+
+class City
+{
+    public string Name;
+}
+class Program
+{
+
+    static void Main(string[] args)
     {
-        return a * b;
+        var department = GetCurrentDepartment();
+        if (department?.Company?.Type == "Банк" && department?.City?.Name == "Санкт-Петербург")
+        {
+            Console.WriteLine("У банка {0} есть отделение в Санкт-Петербурге", department?.Company?.Name ?? "Неизвестная компания");
+        }
     }
-    // Конструктор 1
-    public Rectangle()
+
+    static Department GetCurrentDepartment()
     {
-        a = 6;
-        b = 4;
-    }
-    // Конструктор 2
-    public Rectangle(int side)
-    {
-        a = side;
-        b = side;
-    }
-    // Конструктор 3
-    public Rectangle(int first, int second)
-    {
-        a = first;
-        b = second;
+        City city = new City { Name = "Санкт-Петербург" };
+        Company company = new Company { Type = "Банк", Name = null };
+        Department dep = new Department();
+        dep.Company = company;
+        dep.City = city;
+        return dep;
     }
 }
