@@ -1,26 +1,36 @@
 ﻿using System;
-class SmartHelper 
+class BaseClass
 {
-  private string name;
+    protected string Name;
 
-  public SmartHelper(string name) 
-  {
-    this.name = name;
-  }
-
-  public void Greetings(string name) 
-  {
-    Console.WriteLine("Привет, {0}, я интеллектуальный помощник {1}", name, this.name);
-  }
+    public BaseClass(string name)
+    {
+        Name = name;
+    }
 }
-class Program 
+//Для класса DerivedClass создайте 2 конструктора: один, принимающий 2 параметра — name и description, 
+//второй — принимающий 3 параметра name, description и counter.
+//Используйте конструктор базового класса, чтобы сократить количество кода.
+class DerivedClass : BaseClass
 {
-  static void Main(string[] args) 
-  {
-    SmartHelper helper = new SmartHelper("Олег");
-    helper.Greetings("Грег");
+    public string Description;
 
-    Console.ReadKey();
-  }
+    public int Counter;
+    //C1
+    public DerivedClass(string name, string Description) : base(name)
+    {
+        Description = Description;
 
+    }
+    //C2
+    public DerivedClass(string name, string description, int counter) : base(name)
+    {
+        Description = description;
+        Counter = counter;
+    }
+    //C2-2
+    /* public DerivedClass(string name, string description, int counter) : this(name, description) 
+    {
+        Counter = counter;
+    } */
 }
