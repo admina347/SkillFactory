@@ -1,1 +1,5 @@
-/.vs
+vs/
+vscode/
+obj/
+bin/Debug/net6.0/
+*.scproj
