@@ -1,57 +1,30 @@
 ﻿using System;
-/* Задание 7.2.7
-Создайте схему классов A, B, C, D и E таким образом, чтобы B наследовался от A, С от A, D от B и E от C. А также:
-Добавьте в класс A виртуальный метод Display (void тип, без параметров), который будет выводить в консоль "A".
-В классе B скройте этот метод и сделайте так, чтобы в консоль выводилось "B".
-Для класса C переопределите метод Display, чтобы в консоли было "C".
-Для D снова скройте метод.
-В классе E также скройте метод.*/
+/* Задание 7.2.12
+Для класса Obj перегрузите операторы + и -, чтобы результатом работы 
+оператора был новый экземпляр класса Obj, а операции производились над полем Value. */
 class Program
 {
-    class A
+    class Obj
     {
-        public virtual void Display()
-        {
-            Console.WriteLine("Метод класса A");
-        }
-    }
+        public int Value;
 
-    class B : A
-    {
-        public new void Display()
+        public static Obj operator +(Obj a, Obj b)
         {
-            Console.WriteLine("Метод класса B");
+            return new Obj
+            {
+                Value = a.Value + b.Value
+            };
         }
-    }
-    class C : A
-    {
-        public override void Display()
+        public static Obj operator -(Obj a, Obj b)
         {
-            Console.WriteLine("Метод класса C");
-        }
-    }
-    class D : B
-    {
-        public new void Display()
-        {
-            Console.WriteLine("Метод класса D");
-        }
-    }
-    class E : C
-    {
-        public new void Display()
-        {
-            Console.WriteLine("Метод класса E");
+            return new Obj
+            {
+                Value = a.Value - b.Value
+            };
         }
     }
     static void Main(string[] args)
     {
-        D d = new D();
-        E e = new E();
 
-        d.Display();
-        ((A)e).Display();
-        ((B)d).Display();
-        ((A)d).Display();
     }
 }
