@@ -1,26 +1,27 @@
 ﻿using System;
-/* Задание 7.2.12
-Для класса Obj перегрузите операторы + и -, чтобы результатом работы 
-оператора был новый экземпляр класса Obj, а операции производились над полем Value. */
+/* Задание 7.2.14
+Для следующего класса напишите индексатор, для типа параметра используйте int:*/
 class Program
 {
-    class Obj
+    class IndexingClass
     {
-        public int Value;
-
-        public static Obj operator +(Obj a, Obj b)
+        private int[] array;
+        public IndexingClass(int[] array)
         {
-            return new Obj
-            {
-                Value = a.Value + b.Value
-            };
+            this.array = array;
         }
-        public static Obj operator -(Obj a, Obj b)
+        // Индексатор по массиву
+        public int this[int index]
         {
-            return new Obj
+            get
             {
-                Value = a.Value - b.Value
-            };
+                return array[index];
+            }
+
+            set
+            {
+                array[index] = value;
+            }
         }
     }
     static void Main(string[] args)
