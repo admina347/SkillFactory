@@ -1,6 +1,6 @@
 bin/
 vs/
-vscode/
-obj/
+/vscode/
+/obj/
 bin/Debug/net6.0/
 *.scproj
