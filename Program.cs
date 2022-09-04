@@ -15,7 +15,7 @@ class Program
             Console.WriteLine("Метод класса A");
         }
     }
-    
+
     class B : A
     {
         public new void Display()
@@ -45,9 +45,13 @@ class Program
         }
     }
     static void Main(string[] args)
-        {
-            A obj = new A();
-            
-            obj.Display();
-        }
+    {
+        D d = new D();
+        E e = new E();
+
+        d.Display();
+        ((A)e).Display();
+        ((B)d).Display();
+        ((A)d).Display();
+    }
 }
