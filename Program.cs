@@ -1,26 +1,16 @@
 ﻿using System;
-/*Задание 7.3.3
-Создайте классы для следующих объектов компьютера: процессор (Processor), материнская карта (MotherBoard), 
-видеокарта (GraphicCard). Унаследуйте их от класса ComputerPart.
-
-Добавьте в класс ComputerPart абстрактный метод Work без параметров и с типом void.*/
+/*Задание 7.5.2
+Создайте класс Obj, определите в нем поля Name, Description (тип строки) 
+и статическое поле MaxValue типа int, равное 2000.*/
 class Program
 {
-    abstract class ComputerPart
+    class Obj
     {
-        public abstract void Work();
-    }
-    class Processor : ComputerPart
-    {
-        public override void Work() {}
-    }
-    class MotherBoard : ComputerPart
-    {
-        public override void Work() {}
-    }
-    class GraphicCard : ComputerPart
-    {
-        public override void Work() {}
+        public string Name;
+
+        public string Description;
+
+        public static int MaxValue = 2000;
     }
     static void Main(string[] args)
     {
