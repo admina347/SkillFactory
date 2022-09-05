@@ -1,28 +1,26 @@
 ﻿using System;
-/* Задание 7.2.14
-Для следующего класса напишите индексатор, для типа параметра используйте int:*/
+/*Задание 7.3.3
+Создайте классы для следующих объектов компьютера: процессор (Processor), материнская карта (MotherBoard), 
+видеокарта (GraphicCard). Унаследуйте их от класса ComputerPart.
+
+Добавьте в класс ComputerPart абстрактный метод Work без параметров и с типом void.*/
 class Program
 {
-    class IndexingClass
+    abstract class ComputerPart
     {
-        private int[] array;
-        public IndexingClass(int[] array)
-        {
-            this.array = array;
-        }
-        // Индексатор по массиву
-        public int this[int index]
-        {
-            get
-            {
-                return array[index];
-            }
-
-            set
-            {
-                array[index] = value;
-            }
-        }
+        public abstract void Work();
+    }
+    class Processor : ComputerPart
+    {
+        public override void Work() {}
+    }
+    class MotherBoard : ComputerPart
+    {
+        public override void Work() {}
+    }
+    class GraphicCard : ComputerPart
+    {
+        public override void Work() {}
     }
     static void Main(string[] args)
     {
