@@ -1,75 +1,26 @@
 ﻿using System;
-/*адание 7.5.9
-Для класса int создайте 2 метода расширения: GetNegative() и GetPositive().
+/*Задание 7.6.2
+Создайте класс-обобщение Car для автомобиля. Универсальным параметром будет тип двигателя в автомобиле (электрический и бензиновый). 
+Для типов двигателей также создайте классы — ElectricEngine и GasEngine.
 
-Метод GetNegative должен возвращать отрицательное значение переменной (если оно положительно), либо саму переменную (если оно отрицательно или равно 0).
+В классе Car создайте поле Engine в качестве типа которому укажите универсальный параметр.*/
 
-Метод GetPositive должен, наоборот, возвращать положительное значение (если оно отрицательно), либо саму переменную (если оно положительно или равно 0).
-
-*/
-static class IntExtensions
+class Car<T>
 {
-    public static int GetNegative(this int number)
-    {
-        if (number <= 0)
-        {
-            return number;
-        }
-        else
-        {
-            return number = number * -1;
-        }
-    }
-    public static int GetPositive(this int number)
-    {
-        if (number >= 0)
-        {
-            return number;
-        }
-        else
-        {
-            return number = number * -1;
-        }
-    }
-    //SF code
-    /* public static int GetNegative(this int number)
-    {
-        if (number > 0)
-        {
-            return -number;
-        }
-        else
-        {
-            return number;
-        }
-    }
-    public static int GetPositive(this int number)
-    {
-        if (number < 0)
-        {
-            return -number;
-        }
-        else
-        {
-            return number;
-        }
-    } */
+    public T Engine;
 }
+class ElectricEngine
+{
+    
+}
+class GasEngine
+{
 
+}
 class Program
 {
-
     static void Main(string[] args)
     {
-        int num1 = 7;
-        int num2 = -13;
-        int num3 = 0;
 
-        Console.WriteLine(num1.GetNegative()); //-7
-        Console.WriteLine(num1.GetPositive()); //7
-        Console.WriteLine(num2.GetNegative()); //-13
-        Console.WriteLine(num2.GetPositive()); //13
-        Console.WriteLine(num3.GetNegative()); //0
-        Console.WriteLine(num3.GetPositive()); //0
     }
 }
