@@ -1,11 +1,10 @@
 ﻿using System;
-/*адание 7.6.9
-Установите ограничения на универсальные типы в классе Car. Такие, чтобы поле Engine могло принимать тип ElectricEngine и GasEngine, 
-а параметр newPart метода ChangePart мог бы принимать только типы частей машины (Battery, Differential, Wheel).*/
+/*Задание 7.6.10
+Переименуйте универсальные параметры в более читаемые, например, TEngine и TPart.*/
 
-class Car<T1> where T1 : Engine
+class Car<TEngine> where TEngine : Engine
 {
-    public virtual void ChangePart<T2>(T2 newPart) where T2 : CarPart {}
+    public virtual void ChangePart<TPart>(TPart newPart) where TPart : CarPart {}
 }
 class ElectricEngine : Engine {}
 class GasEngine : Engine {}
