@@ -1,4 +1,5 @@
 ﻿using System;
+using Store.DB;
 /*Итоговое задание 7.7
 
 За выполнение критериев каждого уровня вы получаете 1 балл. Вы можете выполнить только базовый уровень и получить 1 балл, 
@@ -53,50 +54,55 @@
 
 namespace Store
 {
-
-
-}
-
-abstract class Delivery 
-{
-  public string Address;
-}
-//Доставка до двери
-class HomeDelivery: Delivery 
-{
-  /* доставка на дом. Этот тип будет подразумевать наличие курьера или передачу курьерской компании, в нем будет располагаться своя, отдельная от прочих типов доставки логика. */
-}
-
-class PickPointDelivery: Delivery 
-{
-  /* доставка в пункт выдачи. Здесь будет храниться какая-то ещё логика, необходимая для процесса доставки в пункт выдачи, например,
-  хранение компании и точки выдачи, а также какой-то ещё информации. */
-}
-
-class ShopDelivery: Delivery 
-{
-  /* доставка в розничный магазин. Эта доставка может выполняться внутренними средствами компании и совсем не требует работы с «внешними&raquo; элементами. */
-}
-//Заказ
-class Order <TDelivery, TStruct> where TDelivery: Delivery 
-{
-  public TDelivery Delivery;
-
-  public int Number;
-
-  public string Description;
-
-  public void DisplayAddress() 
-  {
-    Console.WriteLine(Delivery.Address);
-  }
-
-  // ... Другие поля
-}
-class Program
-{
-    static void Main(string[] args)
+    
+    abstract class Delivery
     {
+        public string Address;
+    }
+    //Доставка до двери
+    class HomeDelivery : Delivery
+    {
+        /* доставка на дом. Этот тип будет подразумевать наличие курьера или передачу курьерской компании, в нем будет располагаться своя, отдельная от прочих типов доставки логика. */
+    }
 
+    class PickPointDelivery : Delivery
+    {
+        /* доставка в пункт выдачи. Здесь будет храниться какая-то ещё логика, необходимая для процесса доставки в пункт выдачи, например,
+        хранение компании и точки выдачи, а также какой-то ещё информации. */
+    }
+
+    class ShopDelivery : Delivery
+    {
+        /* доставка в розничный магазин. Эта доставка может выполняться внутренними средствами компании и совсем не требует работы с «внешними&raquo; элементами. */
+    }
+    //Заказ
+    class Order<TDelivery, TStruct> where TDelivery : Delivery
+    {
+        public TDelivery Delivery;
+
+        public int Number;
+
+        public string Description;
+
+        public void DisplayAddress()
+        {
+            Console.WriteLine(Delivery.Address);
+        }
+
+        // ... Другие поля
+    }
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            IBookRepository bookRepository;
+            bookRepository = new BookRepository();
+            //Book[] books = bookRepository.GetAllByTitle("Тёмная");
+            Book[] books = bookRepository.GetAll();
+            foreach(var item in books)
+            {
+               Console.WriteLine(item.Title); 
+            }
+        }
     }
 }
