@@ -95,14 +95,37 @@ namespace Store
     {
         static void Main(string[] args)
         {
+            Console.WriteLine("Добро пожаловать в Первый консольный магазин книг!");
+            Console.WriteLine("или не первый.");
+            Console.WriteLine("-----");
+            Console.WriteLine("У нас есть:");
             IBookRepository bookRepository;
             bookRepository = new BookRepository();
             //Book[] books = bookRepository.GetAllByTitle("Тёмная");
             Book[] books = bookRepository.GetAll();
-            foreach(var item in books)
+            /* foreach(var item in books)
             {
-               Console.WriteLine(item.Title); 
+               Console.WriteLine("Книга {0}: {1} Цена: {2}р.", item.Id, item.Title, item.Price); 
+            } */
+            for (int i = 0; i < 4; i++)
+            {
+                Console.WriteLine("Книга {0}: {1} Цена: {2}р.", books[i].Id, books[i].Title, books[i].Price);
             }
+            Console.WriteLine("-----");
+            Console.WriteLine("Посмотреть все - введите все");
+            Console.WriteLine("Узанть о книге подробнее - введите № книги");
+            Console.WriteLine("Добавить книгу в корзину (к Заказу) - введите добавить № книги");
+            //
+            string inputStr = "";
+            inputStr = Console.ReadLine();
+            if(inputStr == "все")
+            {
+                foreach(var item in books)
+                {
+                    Console.WriteLine("Книга {0}: {1} Цена: {2}р.", item.Id, item.Title, item.Price); 
+                } 
+            }
+            Console.ReadKey();
         }
     }
 }

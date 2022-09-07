@@ -1,0 +1,20 @@
+using SkillFactory.Data.Models;
+
+namespace Store.DB;
+
+public class BookGenreRepository
+{
+    private readonly BookGenreModel[] genres = new[]
+    {
+        new BookGenreModel(1, "Фантастика"),
+        new BookGenreModel(2, "Детективы"),
+        new BookGenreModel(3, "Любовные романы"),
+        new BookGenreModel(4, "Приключения"),
+        new BookGenreModel(5, "Классика жанра"),
+        new BookGenreModel(6, "Фэнтези")
+    };
+    public BookGenreModel[] GetAll()
+    {
+        return genres;
+    }
+}

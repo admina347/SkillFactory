@@ -1,20 +1,25 @@
+using SkillFactory.Data.Models;
 namespace Store
 {
     public class Book
     {
         public int Id { get; set; }
-        public string Isbn { get; set; }
+        public string Isbn { get; }
         public string Title { get; }
         public string Author { get; }
-        public string Description { get; set; }
-        public decimal Price { get; set; }
-        public Book(int id, string isbn, string title, string author, string description, decimal price)
+        public string Description { get; }
+        public decimal Price { get;  }
+        //public BookGenreModel Genre { get; set; }
+        public int GenreId { get; }
+        public Book(int id, string isbn, string title, string author, string description, decimal price, int genreid)
         {
             Id = id;
             Isbn = isbn;
             Title = title;
             Author = author;
             Description = description;
+            Price = price;
+            GenreId = genreid;
         }
 
         //Book[] GetByTitle(string titlePart)
