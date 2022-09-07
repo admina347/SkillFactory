@@ -1,5 +1,5 @@
 using SkillFactory.Data.Models;
-namespace Store
+namespace Store.Models
 {
     public class Book
     {
@@ -32,5 +32,29 @@ namespace Store
                  .ToUpper();
             return Regex.IsMatch(s, @"^ISBN\d{10}(\d{3})?$");
         } */
+        public static void ShowBooksPreview(Book[] books, int count)
+        {
+            for (int i = 0; i < count; i++)
+            {
+                Console.WriteLine("Книга {0}: {1} Цена: {2}р.", books[i].Id, books[i].Title, books[i].Price);
+            }
+        }
+        public static void ShowBooksAll(Book[] books)
+        {
+            foreach(var item in books)
+            {
+                Console.WriteLine("Книга {0}: {1} Цена: {2}р.", item.Id, item.Title, item.Price); 
+            } 
+        }
+        public static void ShowBook(Book book, string genre)
+        {
+            Console.WriteLine("Книга №{0} ", book.Id);
+            Console.WriteLine("ISBN: {0}", book.Isbn);
+            Console.WriteLine("Жанр: {0}", genre);
+            Console.WriteLine("Название: {0}", book.Title);
+            Console.WriteLine("Автор: {0}", book.Author);
+            Console.WriteLine("Краткое описание: {0}", book.Description);
+            Console.WriteLine("Цена: {0}р.", book.Price);
+        }
     }
 }

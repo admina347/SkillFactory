@@ -9,5 +9,11 @@ namespace SkillFactory.Data.Models
             Id = id;
             Name = name;
         }
+        /* static string GetBookGenreById(int id)
+        {
+            string name;
+            name = genre.Name
+            return name;
+        } */
     }
 }

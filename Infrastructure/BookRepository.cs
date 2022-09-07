@@ -1,4 +1,5 @@
-﻿namespace Store.DB;
+﻿using Store.Models;
+namespace Store.DB;
 
 public class BookRepository : IBookRepository
 {
@@ -22,5 +23,10 @@ public class BookRepository : IBookRepository
     {
         return books.Where(book => book.Title.Contains(titlePart))
                     .ToArray();
+    }
+
+    public Book GetById(int id)
+    {
+        return books.Single(book => book.Id == id);
     }
 }

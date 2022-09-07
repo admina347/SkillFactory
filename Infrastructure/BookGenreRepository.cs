@@ -2,7 +2,7 @@ using SkillFactory.Data.Models;
 
 namespace Store.DB;
 
-public class BookGenreRepository
+public class BookGenreRepository : IBookGenreRepository
 {
     private readonly BookGenreModel[] genres = new[]
     {
@@ -16,5 +16,9 @@ public class BookGenreRepository
     public BookGenreModel[] GetAll()
     {
         return genres;
+    }
+    public BookGenreModel GetById(int id)
+    {
+        return genres.Single(genre => genre.Id == id);
     }
 }
