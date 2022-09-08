@@ -36,10 +36,10 @@ using Store.DB;
 
 //Бриф
 /* 
-Каталог
-Сделать каталог 
-несколько категорий товаров
-заполнить 3-5 товаров по каждой категории
++Каталог
++Сделать каталог 
++несколько категорий товаров
++заполнить 3-5 товаров по каждой категории
 ---
 Получатель
 ФИО (Имя)
@@ -56,10 +56,32 @@ using Store.DB;
 
 namespace Store
 {
+    class OrderItem
+    {
+        public int BookId { get; }
+        public int Count { get; }
+        public decimal Price { get; }
+        public OrderItem(int bookId, int count, decimal price)
+        {
+            if (count <= 0)
+            throw new ArgumentOutOfRangeException("Количество должно быть больше 0");
+            BookId = bookId;
+            Count = count;
+            Price = price;
+        }
+    }
+
+    class Order
+    {
+        public int Id { get; set; }
+        public Book[] orderBooks { get; set; }
+        public int bookCount { get; set; }
+    }
 
     abstract class Delivery
     {
         public string Address;
+        public string Phone;
     }
     //Доставка до двери
     class HomeDelivery : Delivery
@@ -110,7 +132,15 @@ namespace Store
             genreRepository = new BookGenreRepository();
             BookGenreModel[] genres = genreRepository.GetAll();
             //
-            
+            Book book;
+            Order order = new Order();
+            order.Id = 1;
+            Book[] orderBooks = new Book[0];
+            //Console.WriteLine("Начальный размер массива заказов: " + orderBooks.Length);
+            //
+            //Array.Resize(ref orderBooks, 2);
+            //Console.WriteLine("Новый размер: " + orderBooks.Length);
+
             //Show Preview
             Book.ShowBooksPreview(books, 4);
         //ShowBooksPreview(books, 4);
@@ -128,27 +158,93 @@ namespace Store
             ShowMainMenu();
             var inputStr = Console.ReadLine();
             int bookNumber;
+            bool isnumber;
+            int itemCount;
+/*             isnumber = CheckNum(inputStr, out bookNumber);
+            if(isnumber = true)
+            {
+                Console.WriteLine("Введено корректное число");
+            }
+            else
+            {
+               Console.WriteLine("Введена строка"); 
+            } */
+
+/*             //Возраст; 
+        do
+        {
+            Console.WriteLine("Введите корректный возраст цифрами");
+            inputstr = Console.ReadLine();
+        } while (CheckNum(inputstr, out inputint));
+        User.Age = inputint; */
+
+        Menu:    
+            
+
             //Введено число (id книги)
             if (int.TryParse(inputStr, out bookNumber))
             {
                 Console.WriteLine("Вывести книгу: " + inputStr);
-                Book book = bookRepository.GetById(bookNumber);
+                book = bookRepository.GetById(bookNumber);
                 //Порлучить жанр
                 BookGenreModel genre = genreRepository.GetById(book.GenreId);
                 //Вывести инфо о книге
                 Book.ShowBook(book, genre.Name);
-                ShowSubMenu();
+                ShowBookMenu();
                 inputStr = Console.ReadLine();
             }
             //else
             //{
+                //action menu
                 switch (inputStr)
                 {
-                    case "все":
+                    case "all":
                         Console.WriteLine("Все книги:");
                         Book.ShowBooksAll(books);
                         goto MainMenu;
                     //break;
+                    case "+":
+                        Console.WriteLine("Всего книг: " +books.Length);
+                        //Номер книги; 
+                        do
+                        {
+                            Console.WriteLine("Введите № книги цифрами:");
+                            inputStr = Console.ReadLine();
+                        } while (CheckNum(inputStr, out bookNumber, books.Length));
+                        //Добавить книгу к заказу.
+
+                        //Количество экземпляров
+                        do
+                        {
+                            Console.WriteLine("Введите количество экземпляров цифрами:");
+                            inputStr = Console.ReadLine();
+                        } while (CheckNum(inputStr, out itemCount, 10));
+                        //Проверка размерности массива
+                        /* if(orderBooks.Length == 0)
+                        {
+
+                        } */
+                        
+                        Console.WriteLine("Начальный размер массива заказов: " + orderBooks.Length);
+                        int i = orderBooks.Length;
+                        Array.Resize(ref orderBooks, orderBooks.Length + 1);
+                        book = bookRepository.GetById(bookNumber);
+                        orderBooks[i] = book;
+                        Console.WriteLine("После добавления размер массива заказов: " + orderBooks.Length);
+                        Console.WriteLine(orderBooks[i].Title);
+                        order.bookCount = itemCount;
+                        Console.WriteLine("Название {0} количество {1}", orderBooks[i].Title, order.bookCount);
+                        ShowCartMenu();
+                        inputStr = Console.ReadLine();                   
+                        goto Menu;
+                    case "-":
+                        //вывесли позиции заказа (корзины)
+                        Console.WriteLine("В корзине:");
+                        foreach(var item in orderBooks)
+                        {
+                            Console.WriteLine("Товар {0}: {1} кол-во: {2}", item.Id, item.Title, order.bookCount); 
+                        } 
+                        break;
                     case "#":
                         goto MainMenu;
                     case "q":
@@ -166,28 +262,37 @@ namespace Store
         {
             Console.WriteLine("-----");
             Console.WriteLine("Главное меню:");
-            Console.WriteLine("Посмотреть все - введите все");
-            Console.WriteLine("Узанть о книге подробнее - введите № книги");
-            Console.WriteLine("Добавить книгу в корзину (к Заказу) - введите + № книги");
-            Console.WriteLine("Вернуться в Главное меню - #");
+            Console.WriteLine("Посмотреть все введите all");
+            Console.WriteLine("Узанть о книге подробнее введите № книги");
+            Console.WriteLine("Добавить книгу в корзину (к Заказу) введите + , а затем № книги");
+            Console.WriteLine("Вернуться в Главное меню #");
             Console.WriteLine("Выход - q");
         }
         //Меню книги
-        static void ShowSubMenu()
+        static void ShowBookMenu()
         {
             Console.WriteLine("-----");
-            Console.WriteLine("Добавить книгу в корзину (к Заказу) - введите + ");
+            Console.WriteLine("Добавить книгу в корзину (к Заказу) введите + ");
+            Console.WriteLine("Вернуться в Главное меню #");
+            Console.WriteLine("Выход - q");
+        }
+        //Меню корзины
+        static void ShowCartMenu()
+        {
+            Console.WriteLine("-----");
+            Console.WriteLine("Добавить книгу в корзину (к Заказу) введите + ");
+            Console.WriteLine("Удалить книгу из корзины (Закза) введите - ");
             Console.WriteLine("Вернуться в Главное меню - #");
             Console.WriteLine("Выход - q");
         }
         //Проверка ввода
 
         //Проверка числа
-        static bool CheckNum(string number, out int cornumber)
+        static bool CheckNum(string number, out int cornumber, int booksCount)
         {
             if (int.TryParse(number, out int intnum))
             {
-                if (intnum > 0 && intnum < 100)
+                if (intnum > 0 && intnum < booksCount)
                 {
                     cornumber = intnum;
                     return false;
@@ -208,5 +313,6 @@ namespace Store
             }
             return false; //если ни разу не выбило в цикле, значит, все символы - это буквы
         }
+        
     }
 }
