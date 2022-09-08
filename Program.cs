@@ -239,7 +239,7 @@ namespace Store
                         //
                         book = bookRepository.GetById(bookNumber);
                         //item init
-                        orderItems[i] = new OrderItem(i,book,itemCount,book.Price);
+                        orderItems[i] = new OrderItem(itemId,book,itemCount,book.Price);
                         //Console.WriteLine(orderItems.GetType());
                         //Console.WriteLine(book.GetType());
                         
@@ -249,6 +249,23 @@ namespace Store
                         //кол-во экземпляров
                         //orderItems[i].ItemCount = itemCount;
                         Console.WriteLine("{0} {1}шт. добавлено!", orderItems[i].Book.Title, orderItems[i].Count);
+                        ShowCartMenu();
+                        inputStr = Console.ReadLine();                   
+                        goto Menu;
+                    case "cart":
+                        //вывесли позиции заказа (корзины)
+                        Console.WriteLine("В корзине:");
+                        if(orderItems.Length > 0)
+                        {
+                            foreach(var item in orderItems)
+                            {
+                                Console.WriteLine("Товар {0}: {1} кол-во: {2}", item.Id, item.Book.Title, item.Count); 
+                            }
+                        }
+                        else
+                        {
+                            Console.WriteLine("Нет товара");
+                        }
                         ShowCartMenu();
                         inputStr = Console.ReadLine();                   
                         goto Menu;
@@ -280,6 +297,7 @@ namespace Store
             Console.WriteLine("Посмотреть все введите all");
             Console.WriteLine("Узанть о книге подробнее введите № книги");
             Console.WriteLine("Добавить книгу в корзину (к Заказу) введите + , а затем № книги");
+            Console.WriteLine("Посомтреть товары в корзине введите - cart");
             Console.WriteLine("Вернуться в Главное меню #");
             Console.WriteLine("Выход - q");
         }
@@ -296,6 +314,7 @@ namespace Store
         {
             Console.WriteLine("-----");
             Console.WriteLine("Добавить книгу в корзину (к Заказу) введите + ");
+            
             Console.WriteLine("Удалить книгу из корзины (Закза) введите - ");
             Console.WriteLine("Вернуться в Главное меню - #");
             Console.WriteLine("Выход - q");
