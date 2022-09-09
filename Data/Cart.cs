@@ -25,7 +25,6 @@ namespace Store.Models
                 foreach (var item in CartItems)
                 {
                     Console.WriteLine("Товар {0}: {1} кол-во: {2}, Цена: {3}р. Сумма: {4}р.", item.Id, item.Book.Title, item.Count, item.Price, item.Sum);
-
                 }
                 //Total
                 Console.WriteLine("Всего позиций: {0}, кол-во товара: {1}, Итого: {2}р.", CartItems.Count(), cart.TotalCount, cart.TotalPrice);
@@ -68,6 +67,7 @@ namespace Store.Models
 
             itemId = cartItems.Length + 1;     //Получили индекс
             Array.Resize(ref cartItems, cartItems.Length + 1);
+            
             //Console.WriteLine("Добавли размерность + 1: " + cartItems.Length);
             //Получаем книгу
 
@@ -93,19 +93,32 @@ namespace Store.Models
             return -1;
         }
         //Remove item
-        public static void RemoveItem(ref CartItem[] cartItems, int cartItemId)
+        public static void RemoveItem(CartItem[] cartItems, int cartItemId)
         {
             //cartItemId = cartItemId - 1;
             int cartItemIndex;
+            //cartItemIndex = Array.IndexOf(cartItems,cartItemId);
+            //Array.Sort()
             cartItemIndex = CartItemIndexOf(cartItems, cartItemId);
+            if (cartItemIndex < 0)
+            return;
             Console.WriteLine("Индекс: {0}",cartItemIndex);
             CartItem[] newCartItems = new CartItem[cartItems.Length -1];
             for (int i = 0; i < cartItemIndex; i++)
                 newCartItems[i] = cartItems[i];
             for (int i = cartItemIndex + 1; i < cartItems.Length; i++)
                 newCartItems[i - 1] = cartItems[i];
-            //cartItems = newCartItems;
+            //Сортировка ид
+            UpdateCartItemsId(newCartItems);
             Cart.CartItems = newCartItems;
+        }
+        //написать модуль обновления для Cart ItemId после удаление cart Item
+        private static void UpdateCartItemsId(CartItem[] cartItems)
+        {
+            for (int i = 0; i < cartItems.Length; i++)
+            {
+                cartItems[i].Id = i + 1;
+            }
         }
     }
 }

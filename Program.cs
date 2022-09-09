@@ -97,11 +97,7 @@ namespace Store
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Добро пожаловать в Первый консольный магазин книг!");
-            Console.WriteLine("или не первый.");
-            Console.WriteLine("-----");
-            Console.WriteLine("У нас есть:");
-            //
+            
             IBookRepository bookRepository;
             bookRepository = new BookRepository();
             Book[] books = bookRepository.GetAll();
@@ -120,19 +116,23 @@ namespace Store
             CartItem[] cartItems = new CartItem[0];
             //Корзина
             Cart cart = new Cart(cartItems);
+            //Приветствие
+            Menu.ShowWelcome();
             //Show Preview
             Book.ShowBooksPreview(books, 4);
+            string inputStr;        //user input
+            int bookNumber;
+            //bool isnumber;
+            int bookCount;
         //Показать главное меню
         //case
         MainMenu:
+            
             Menu.ShowMainMenu();
-            var inputStr = Console.ReadLine();
-            int bookNumber;
-            bool isnumber;
-            int bookCount;
+            
 
         Menu:
-
+            inputStr = Console.ReadLine();
             //Введено число (id книги)
             if (int.TryParse(inputStr, out bookNumber))
             {
@@ -143,7 +143,7 @@ namespace Store
                 //Вывести инфо о книге
                 Book.ShowBook(book, genre.Name);
                 Menu.ShowBookMenu();
-                inputStr = Console.ReadLine();
+                //inputStr = Console.ReadLine();
             }
             //else
             //{
@@ -161,7 +161,7 @@ namespace Store
                     {
                         Console.WriteLine("Введите № книги цифрами:");
                         inputStr = Console.ReadLine();
-                    } while (CheckNum(inputStr, out bookNumber, books.Length));
+                    } while (Helper.CheckNum(inputStr, out bookNumber, books.Length + 1));
                     //Добавить книгу к заказу.
 
                     //Количество экземпляров
@@ -169,7 +169,7 @@ namespace Store
                     {
                         Console.WriteLine("Введите количество экземпляров цифрами:");
                         inputStr = Console.ReadLine();
-                    } while (CheckNum(inputStr, out bookCount, 10));
+                    } while (Helper.CheckNum(inputStr, out bookCount, 10));
                     //Проверка размерности массива
                     //Console.WriteLine("Начальный размер массива заказов: " + cartItems.Length);
 
@@ -178,27 +178,26 @@ namespace Store
                     //save cart
                     Cart.CartItems = cartItems;
                     Menu.ShowBookMenu();
-                    inputStr = Console.ReadLine();
                     goto Menu;
                 case "cart":
                     Cart.ShowCart(cart);
                     Menu.ShowCartMenu();
-                    inputStr = Console.ReadLine();
                     goto Menu;
                 case "-":
                     Cart.ShowCart(cart);
-                    //Номер книги; 
+                    //Номер товара; 
                     do
                     {
                         Console.WriteLine("Введите № товара цифрами:");
                         inputStr = Console.ReadLine();
-                    } while (CheckNum(inputStr, out bookNumber, cartItems.Length + 1));
-                    Console.WriteLine("Номер товара: {0}", bookNumber);
+                    } while (Helper.CheckNum(inputStr, out bookNumber, cartItems.Length + 1));
+                    //Console.WriteLine("Номер товара: {0}", bookNumber);
+                    cartItems = Cart.CartItems;                    
+                    CartItem.RemoveItem(cartItems, bookNumber);
+                    //save
                     cartItems = Cart.CartItems;
-                    
-                    CartItem.RemoveItem(ref cartItems, bookNumber);
+                    Cart.ShowCart(cart);
                     Menu.ShowCartMenu();
-                    inputStr = Console.ReadLine();
                     goto Menu;
                 case "#":
                     goto MainMenu;
@@ -209,53 +208,7 @@ namespace Store
                     Console.WriteLine("Неизвестная команда");
                     goto MainMenu;
             }
-        }
-
-        //Проверка ввода
-
-        //Проверка числа
-        static bool CheckNum(string number, out int cornumber, int booksCount)
-        {
-            if (int.TryParse(number, out int intnum))
-            {
-                if (intnum > 0 && intnum < booksCount)
-                {
-                    cornumber = intnum;
-                    return false;
-                }
-            }
-            {
-                cornumber = 0;
-                return true;
-            }
-        }
-        //Проверка строки (исключить цифры)
-        static bool ChekStr(string s)
-        {
-            foreach (var item in s)
-            {
-                if (char.IsDigit(item))
-                    return true; //если хоть один символ число, то выкидываешь true
-            }
-            return false; //если ни разу не выбило в цикле, значит, все символы - это буквы
-        }
-
-        //Создать массив любимых цветов
-        static string[] CreateArrayColors(int ColorCount)
-        {
-            var result = new string[ColorCount];
-            string istr;   //Введенные данные
-            for (int i = 0; i < result.Length; i++)
-            {
-                do
-                {
-                    Console.WriteLine("Введите любимый цвет номер {0} на английском с маленькой буквы", i + 1);
-                    istr = Console.ReadLine();
-                } while (ChekStr(istr));
-                result[i] = istr;
-            }
-            return result;
-        }
+        }       
 
     }
 }

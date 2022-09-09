@@ -3,6 +3,13 @@ namespace Store
     //Меню
     class Menu
     {
+        public static void ShowWelcome()
+        {
+            Console.WriteLine("Добро пожаловать в Первый консольный магазин книг!");
+            Console.WriteLine("или не первый.");
+            Console.WriteLine("У нас есть:");
+            Console.WriteLine("-Каталог-");
+        }        
         public static void ShowMainMenu()
         {
             Console.WriteLine("-Главное меню-");
