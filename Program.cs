@@ -151,7 +151,6 @@ namespace Store
             switch (inputStr)
             {
                 case "all":
-                    Console.WriteLine("Все книги:");
                     Book.ShowBooksAll(books);
                     goto MainMenu;
                 //break;
@@ -176,8 +175,9 @@ namespace Store
 
                     book = bookRepository.GetById(bookNumber);
                     cartItems = CartItem.AddItem(cartItems, book, bookCount);
+                    //save cart
                     Cart.CartItems = cartItems;
-                    Menu.ShowCartMenu();
+                    Menu.ShowBookMenu();
                     inputStr = Console.ReadLine();
                     goto Menu;
                 case "cart":
@@ -187,6 +187,16 @@ namespace Store
                     goto Menu;
                 case "-":
                     Cart.ShowCart(cart);
+                    //Номер книги; 
+                    do
+                    {
+                        Console.WriteLine("Введите № товара цифрами:");
+                        inputStr = Console.ReadLine();
+                    } while (CheckNum(inputStr, out bookNumber, cartItems.Length + 1));
+                    Console.WriteLine("Номер товара: {0}", bookNumber);
+                    cartItems = Cart.CartItems;
+                    
+                    CartItem.RemoveItem(ref cartItems, bookNumber);
                     Menu.ShowCartMenu();
                     inputStr = Console.ReadLine();
                     goto Menu;

@@ -28,7 +28,7 @@ namespace Store.Models
 
                 }
                 //Total
-                Console.WriteLine("Всего позиций: {0}, кол-во товара: {1}, Итого: {3}р.", CartItems.Count(), cart.TotalCount, cart.TotalPrice);
+                Console.WriteLine("Всего позиций: {0}, кол-во товара: {1}, Итого: {2}р.", CartItems.Count(), cart.TotalCount, cart.TotalPrice);
             }
             else
             {
@@ -80,8 +80,32 @@ namespace Store.Models
             //Console.WriteLine(cartItems[i].ItemBook.Title);
             //кол-во экземпляров
             //cartItems[i].ItemCount = itemCount;
+            
             Console.WriteLine("{0} {1}шт. добавлено!", cartItems[i].Book.Title, cartItems[i].Count);
             return cartItems;
+        }
+        private static int CartItemIndexOf(CartItem[] array, int value)
+        {
+            for (int i = 0; i < array.Length; i++)
+            {
+                if (array[i].Id == value) {return i;}
+            }
+            return -1;
+        }
+        //Remove item
+        public static void RemoveItem(ref CartItem[] cartItems, int cartItemId)
+        {
+            //cartItemId = cartItemId - 1;
+            int cartItemIndex;
+            cartItemIndex = CartItemIndexOf(cartItems, cartItemId);
+            Console.WriteLine("Индекс: {0}",cartItemIndex);
+            CartItem[] newCartItems = new CartItem[cartItems.Length -1];
+            for (int i = 0; i < cartItemIndex; i++)
+                newCartItems[i] = cartItems[i];
+            for (int i = cartItemIndex + 1; i < cartItems.Length; i++)
+                newCartItems[i - 1] = cartItems[i];
+            //cartItems = newCartItems;
+            Cart.CartItems = newCartItems;
         }
     }
 }

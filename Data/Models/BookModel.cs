@@ -41,6 +41,7 @@ namespace Store.Models
         }
         public static void ShowBooksAll(Book[] books)
         {
+            Console.WriteLine("Все книги:");
             foreach(var item in books)
             {
                 Console.WriteLine("Книга {0}: {1} Цена: {2}р.", item.Id, item.Title, item.Price); 
