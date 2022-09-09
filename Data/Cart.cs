@@ -1,3 +1,4 @@
+using System.Linq;
 namespace Store.Models
 {
     class Cart
@@ -20,7 +21,7 @@ namespace Store.Models
         {
             //вывесли позиции заказа (корзины)
             Console.WriteLine("В корзине:");
-            if (CartItems.Length > 0)
+            if (CartItems.Length > 0 && CartItems != null)
             {
                 foreach (var item in CartItems)
                 {
@@ -64,24 +65,27 @@ namespace Store.Models
         {
             int i = cartItems.Length;
             int itemId;
+            int bookItemId = -1;    //книга есть в корзине
+            //проверить есть ли книга в корзине
+            if(cartItems.Count() > 0 && cartItems != null)
+            {
+                bookItemId = BookIdIndexOf(ref cartItems, book.Id);
+                Console.WriteLine("Id книги в корзине : {0}", bookItemId);
+            }
 
-            itemId = cartItems.Length + 1;     //Получили индекс
-            Array.Resize(ref cartItems, cartItems.Length + 1);
-            
-            //Console.WriteLine("Добавли размерность + 1: " + cartItems.Length);
-            //Получаем книгу
-
-            //item init
-            cartItems[i] = new CartItem(itemId, book, bookCount, book.Price);
-            //Console.WriteLine(cartItems.GetType());
-            //Console.WriteLine(book.GetType());
-            //cartItems[i].ItemBook = book;
-            //Console.WriteLine("После добавления размер массива заказов: " + cartItems.Length);
-            //Console.WriteLine(cartItems[i].ItemBook.Title);
-            //кол-во экземпляров
-            //cartItems[i].ItemCount = itemCount;
-            
-            Console.WriteLine("{0} {1}шт. добавлено!", cartItems[i].Book.Title, cartItems[i].Count);
+            //var res = Array.Find(cartItems, book => itemId);
+            //item exist
+            if(bookItemId >= 0)
+            {
+                cartItems[bookItemId].Count = cartItems[bookItemId].Count + bookCount;
+            }
+            else    //item init
+            {
+                itemId = cartItems.Length + 1;     //Получили индекс
+                Array.Resize(ref cartItems, cartItems.Length + 1);
+                cartItems[i] = new CartItem(itemId, book, bookCount, book.Price);           
+                Console.WriteLine("{0} {1}шт. добавлено!", cartItems[i].Book.Title, cartItems[i].Count);
+            }            
             return cartItems;
         }
         private static int CartItemIndexOf(CartItem[] array, int value)
@@ -112,7 +116,6 @@ namespace Store.Models
             UpdateCartItemsId(newCartItems);
             Cart.CartItems = newCartItems;
         }
-        //написать модуль обновления для Cart ItemId после удаление cart Item
         private static void UpdateCartItemsId(CartItem[] cartItems)
         {
             for (int i = 0; i < cartItems.Length; i++)
@@ -120,5 +123,17 @@ namespace Store.Models
                 cartItems[i].Id = i + 1;
             }
         }
+        static int BookIdIndexOf(ref CartItem[] array, int id)
+        {
+            for (int i = 0; i < array.Length; i++)
+            {
+                if(array[i].Book.Id == id) {return i;}
+            }
+            return -1;
+        }
+        /* public static void CartClear(CartItem[] cartItems)
+        {
+            Array.Clear(cartItems);
+        } */
     }
 }

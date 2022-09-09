@@ -32,8 +32,9 @@ namespace Store
         public static void ShowCartMenu()
         {
             Console.WriteLine("-Корзина-");
-            Console.WriteLine("Оформить заказ ввeдиет z");
-            Console.WriteLine("Удалить книгу из корзины введите -");            
+            Console.WriteLine("Оформить заказ ввeдите z");
+            Console.WriteLine("Удалить книгу из корзины введите -");
+            Console.WriteLine("Очитсить корзину - c");
             Console.WriteLine("Вернуться в Главное меню - #");
             Console.WriteLine("Выход - q");
         }

@@ -199,6 +199,10 @@ namespace Store
                     Cart.ShowCart(cart);
                     Menu.ShowCartMenu();
                     goto Menu;
+                case "c":
+                    Array.Resize(ref cartItems, 0);
+                    Cart.CartItems = cartItems;
+                    goto MainMenu;
                 case "#":
                     goto MainMenu;
                 case "q":
