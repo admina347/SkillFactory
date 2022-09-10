@@ -71,7 +71,7 @@ namespace Store
             //Order<Delivery> order = new Order<HomeDelivery>();
             //OrderItem[] cartItems = new OrderItem[1];
             Book book;
-            book = bookRepository.GetById(1);
+            //book = bookRepository.GetById(1);
             //Book[] books = new[]
 
             //Создаем массив эолементов закза

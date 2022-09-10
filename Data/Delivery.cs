@@ -5,8 +5,8 @@ namespace Store
     public abstract class Delivery
     {
         public string Address;
-        public string Phone;
-        public DateTime DeliveryDate { get; }
+        //public string Phone;
+        public DateTime DeliveryDate { get; set; }
     }
     //Доставка до двери
     public class HomeDelivery : Delivery
