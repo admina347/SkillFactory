@@ -1,5 +1,5 @@
 using Store.Models;
-namespace Store.DB;
+namespace Store.Memory;
 
 public interface IBookRepository
 {

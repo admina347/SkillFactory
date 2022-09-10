@@ -1,3 +1,5 @@
+using Store.Models;
+
 namespace Store
 {
     class Helper

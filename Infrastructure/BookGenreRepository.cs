@@ -1,6 +1,6 @@
 using SkillFactory.Data.Models;
 
-namespace Store.DB;
+namespace Store.Memory;
 
 public class BookGenreRepository : IBookGenreRepository
 {

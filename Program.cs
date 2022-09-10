@@ -1,7 +1,7 @@
 ﻿using System;
 using SkillFactory.Data.Models;
 using Store.Models;
-using Store.DB;
+using Store.Memory;
 /*Итоговое задание 7.7
 
 За выполнение критериев каждого уровня вы получаете 1 балл. Вы можете выполнить только базовый уровень и получить 1 балл, 

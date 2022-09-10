@@ -1,3 +1,5 @@
+using Store.Models;
+
 namespace Store
 {
     public abstract class Delivery
@@ -10,7 +12,7 @@ namespace Store
     public class HomeDelivery : Delivery
     {
         //Курьерская служба выбор
-        public Сourier Сourier;
+        public Courier Сourier;
         public string Comment { get; set; }
         public bool toDoor { get; set; }
         /* доставка на дом. Этот тип будет подразумевать наличие курьера или передачу курьерской компании, в нем будет располагаться своя, отдельная от прочих типов доставки логика. */
