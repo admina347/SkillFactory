@@ -56,48 +56,10 @@ using Store.DB;
 
 namespace Store
 {
-    abstract class Delivery
-    {
-        public string Address;
-        public string Phone;
-    }
-    //Доставка до двери
-    class HomeDelivery : Delivery
-    {
-        /* доставка на дом. Этот тип будет подразумевать наличие курьера или передачу курьерской компании, в нем будет располагаться своя, отдельная от прочих типов доставки логика. */
-    }
-
-    class PickPointDelivery : Delivery
-    {
-        /* доставка в пункт выдачи. Здесь будет храниться какая-то ещё логика, необходимая для процесса доставки в пункт выдачи, например,
-        хранение компании и точки выдачи, а также какой-то ещё информации. */
-    }
-
-    class ShopDelivery : Delivery
-    {
-        /* доставка в розничный магазин. Эта доставка может выполняться внутренними средствами компании и совсем не требует работы с «внешними&raquo; элементами. */
-    }
-    //Заказ
-    class Order<TDelivery> where TDelivery : Delivery
-    {
-        public int Id { get; set; }
-        private CartItem[] CartItems;
-        //public OrderItem[] cartItems = new OrderItem[0];
-
-        public TDelivery Delivery;
-        public string Description;
-        public void DisplayAddress()
-        {
-            Console.WriteLine(Delivery.Address);
-        }
-
-        // ... Другие поля
-    }
     class Program
     {
         static void Main(string[] args)
-        {
-            
+        {            
             IBookRepository bookRepository;
             bookRepository = new BookRepository();
             Book[] books = bookRepository.GetAll();
@@ -130,7 +92,6 @@ namespace Store
             
             Menu.ShowMainMenu();
             
-
         Menu:
             inputStr = Console.ReadLine();
             //Введено число (id книги)
@@ -145,34 +106,27 @@ namespace Store
                 Menu.ShowBookMenu();
                 //inputStr = Console.ReadLine();
             }
-            //else
-            //{
             //action menu
             switch (inputStr)
             {
                 case "all":
                     Book.ShowBooksAll(books);
                     goto MainMenu;
-                //break;
                 case "+":
                     Console.WriteLine("Всего книг: " + books.Length);
-                    //Номер книги; 
+                    //Номер книги
                     do
                     {
                         Console.WriteLine("Введите № книги цифрами:");
                         inputStr = Console.ReadLine();
-                    } while (Helper.CheckNum(inputStr, out bookNumber, books.Length + 1));
-                    //Добавить книгу к заказу.
-
+                    } while (Helper.CheckBookCount(inputStr, out bookNumber, books.Length + 1));
                     //Количество экземпляров
                     do
                     {
                         Console.WriteLine("Введите количество экземпляров цифрами:");
                         inputStr = Console.ReadLine();
-                    } while (Helper.CheckNum(inputStr, out bookCount, 10));
-                    //Проверка размерности массива
-                    //Console.WriteLine("Начальный размер массива заказов: " + cartItems.Length);
-
+                    } while (Helper.CheckBookCount(inputStr, out bookCount, 10));
+                    //Получить книгу
                     book = bookRepository.GetById(bookNumber);
                     cartItems = CartItem.AddItem(cartItems, book, bookCount);
                     //save cart
@@ -185,13 +139,12 @@ namespace Store
                     goto Menu;
                 case "-":
                     Cart.ShowCart(cart);
-                    //Номер товара; 
+                    //Номер товара
                     do
                     {
                         Console.WriteLine("Введите № товара цифрами:");
                         inputStr = Console.ReadLine();
-                    } while (Helper.CheckNum(inputStr, out bookNumber, cartItems.Length + 1));
-                    //Console.WriteLine("Номер товара: {0}", bookNumber);
+                    } while (Helper.CheckBookCount(inputStr, out bookNumber, cartItems.Length + 1));
                     cartItems = Cart.CartItems;                    
                     CartItem.RemoveItem(cartItems, bookNumber);
                     //save
@@ -203,6 +156,11 @@ namespace Store
                     Array.Resize(ref cartItems, 0);
                     Cart.CartItems = cartItems;
                     goto MainMenu;
+                case "z":
+                    //Order<HomeDelivery> order = new Order<HomeDelivery>();
+                    //order.Delivery. = HomeDelivery;
+                    Helper.NewOrder();
+                    break;
                 case "#":
                     goto MainMenu;
                 case "q":
@@ -213,6 +171,5 @@ namespace Store
                     goto MainMenu;
             }
         }       
-
     }
 }
