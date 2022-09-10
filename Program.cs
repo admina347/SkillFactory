@@ -159,7 +159,7 @@ namespace Store
                 case "z":
                     //Order<HomeDelivery> order = new Order<HomeDelivery>();
                     //order.Delivery. = HomeDelivery;
-                    Helper.NewOrder();
+                    Helper.NewOrder(cart);
                     break;
                 case "#":
                     goto MainMenu;

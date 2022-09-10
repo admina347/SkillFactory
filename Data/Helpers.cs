@@ -14,12 +14,27 @@ namespace Store
             int courierNumber;
             Console.WriteLine("Новый заказ");
             Recipient recipient = new Recipient();
-            Console.WriteLine("Введите свое Имя");
-            recipient.Name = Console.ReadLine();
-            Console.WriteLine("Введите свою Фамилию");
-            recipient.LastName = Console.ReadLine();
-            Console.WriteLine("Введите номер мобильного");
-            recipient.CellPhone = Console.ReadLine();
+            //Name
+            do
+            {
+                Console.WriteLine("Введите свое Имя");
+                iStr = Console.ReadLine();
+            } while (Helper.ChekStr(iStr));
+            recipient.Name = iStr;
+            //LastName
+            do
+            {
+                Console.WriteLine("Введите свою Фамилию");
+                iStr = Console.ReadLine();
+            } while (Helper.ChekStr(iStr));
+            recipient.LastName = iStr;
+            //phone
+            do
+            {
+                Console.WriteLine("Введите номер мобильного");
+                iStr = Console.ReadLine();
+            } while (Helper.CheckPhone(iStr));
+            recipient.CellPhone = iStr;
         DType:
             Console.WriteLine("Выберите способ получения:");
             Console.WriteLine("1 Доставка курьером по адресу");
@@ -63,9 +78,11 @@ namespace Store
                 Console.WriteLine("Выбрана служба: {0}", order.Delivery.Сourier.Name);
                 //adres
                 Console.WriteLine("Введите адрес доставки:");
-                order.Delivery.Address = Console.ReadLine();    //без проверки не успеваю
+                iStr = Console.ReadLine();    //без проверки не успеваю
+                order.Delivery.Address = iStr;
                 Console.WriteLine("Комментарий для курьера:");
-                order.Delivery.Comment = Console.ReadLine();
+                iStr = Console.ReadLine();    //без проверки не успеваю
+                order.Delivery.Comment = iStr;
                 //оставить у двери;
                 bool toDoor;
                 do
@@ -77,7 +94,7 @@ namespace Store
                 //даты доставки
                 DateTime curDate = DateTime.Now;
                 int dDate;
-                DateTime[] deliveryDates = { curDate.AddDays(2), curDate.AddDays(3), curDate.AddDays(4), curDate.AddDays(5)};
+                DateTime[] deliveryDates = { curDate.AddDays(2), curDate.AddDays(3), curDate.AddDays(4), curDate.AddDays(5) };
                 Console.WriteLine("Выберите дату доставки:");
                 for (int i = 0; i < deliveryDates.Length; i++)
                 {
@@ -88,7 +105,7 @@ namespace Store
                     else
                     {
                         Console.WriteLine("{0}: {1} c 15:00 до 20:00", i + 1, deliveryDates[i].ToString("dddd, dd MMMM yyyy"));
-                    }                    
+                    }
                 }
                 //получить дату
                 do
@@ -98,17 +115,27 @@ namespace Store
                 } while (Helper.CheckBookCount(iStr, out dDate, deliveryDates.Length + 1));
                 //Console.WriteLine("Выбрана дата: {0}", dDate);
                 order.Delivery.DeliveryDate = deliveryDates[dDate - 1];
+                if (dDate % 2 == 1)
+                {
+                    order.Delivery.DTime = "c 15:00 до 20:00";
+                }
+                else
+                {
+                    
+                    order.Delivery.DTime = "c 10:00 до 15:00";
+                }
                 Console.WriteLine("Выбрана дата: {0}", order.Delivery.DeliveryDate.ToString("dddd, dd MMMM yyyy"));
                 //записать все в заказ
-                order.OredrRecipient = recipient;
+                order.Recipient = recipient;
                 order.OrderCart = cart;
+                //вывести инфо о заказе
+                Order<HomeDelivery>.ShowOrder(order);
             }
             if (deliveryType == 2)
             {
                 Console.WriteLine("Выбран способ доставки: в пункт выдачи");
                 Order<PickPointDelivery> order = new Order<PickPointDelivery>();
             }
-            //вывести инфо о заказе
         }
         //Проверка числа
         internal static bool CheckBookCount(string number, out int cornumber, int booksCount)
@@ -166,19 +193,19 @@ namespace Store
             return false; //если ни разу не выбило в цикле, значит, все символы - это буквы
         }
         //Подтвердить выбор
-        static bool ActionAccept(string s, out bool todoor)
+        internal static bool ActionAccept(string s, out bool orderAccept)
         {
             if (s == "y" || s == "Y")
             {
-                todoor = true;
+                orderAccept = true;
                 return false;
             }
             if (s == "n" || s == "N")
             {
-                todoor = false;
+                orderAccept = false;
                 return false;
             }
-            todoor = false;
+            orderAccept = false;
             return true;
         }
     }

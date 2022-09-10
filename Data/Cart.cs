@@ -35,8 +35,26 @@ namespace Store.Models
                 Console.WriteLine("Нет товара");
             }
         }
+        public static void ShowOrderItems(Cart cart)
+        {
+            //вывесли позиции заказа (корзины)
+            Console.WriteLine("Ваш заказ:");
+            if (CartItems.Length > 0 && CartItems != null)
+            {
+                foreach (var item in CartItems)
+                {
+                    Console.WriteLine("Товар {0}: {1} кол-во: {2}, Цена: {3}р. Сумма: {4}р.", item.Id, item.Book.Title, item.Count, item.Price, item.Sum);
+                }
+                //Total
+                Console.WriteLine("Всего позиций: {0}, кол-во товара: {1}, Итого: {2}р.", CartItems.Count(), cart.TotalCount, cart.TotalPrice);
+            }
+            else
+            {
+                Console.WriteLine("Нет товара");
+            }
+        }
     }
-    class CartItem
+    public class CartItem
     {
         public int Id { get; set; }
         public Book Book { get; set; }

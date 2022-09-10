@@ -15,6 +15,7 @@ namespace Store
         public Courier Сourier;
         public string Comment { get; set; }
         public bool toDoor { get; set; }
+        public string DTime { get; set; }
         /* доставка на дом. Этот тип будет подразумевать наличие курьера или передачу курьерской компании, в нем будет располагаться своя, отдельная от прочих типов доставки логика. */
     }
 
