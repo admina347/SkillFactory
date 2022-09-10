@@ -1,7 +1,7 @@
 using System.Linq;
 namespace Store.Models
 {
-    class Cart
+    public class Cart
     {
         //public int Id { get; set; }
         public static CartItem[] CartItems { get; set; } = new CartItem[0];
