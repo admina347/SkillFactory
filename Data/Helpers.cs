@@ -121,7 +121,7 @@ namespace Store
                 }
                 else
                 {
-                    
+
                     order.Delivery.DTime = "c 10:00 до 15:00";
                 }
                 Console.WriteLine("Выбрана дата: {0}", order.Delivery.DeliveryDate.ToString("dddd, dd MMMM yyyy"));
@@ -135,6 +135,32 @@ namespace Store
             {
                 Console.WriteLine("Выбран способ доставки: в пункт выдачи");
                 Order<PickPointDelivery> order = new Order<PickPointDelivery>();
+                order.Id = 1;
+                //init pickPoints
+                IPickPointRepository pickPointRepository;
+                pickPointRepository = new PickPointRepository();
+                PickPoint[] pickPoints = pickPointRepository.GetAll();
+                PickPoint.ShowPickPointsAll(pickPoints);
+                //Номер пункта выдачи
+                int pickPointNumber;
+                do
+                {
+                    Console.WriteLine("Введите № пункта выдачи цифрами:");
+                    iStr = Console.ReadLine();
+                } while (Helper.CheckCourier(iStr, out pickPointNumber, pickPoints.Length + 1));
+                PickPoint pickPoint;
+                pickPoint = pickPointRepository.GetById(pickPointNumber);
+                order.Delivery = new PickPointDelivery();
+                order.Delivery.PickPoint = pickPoint;
+                Console.WriteLine("Выбран пункт выдачи: {0}", order.Delivery.PickPoint.Name);
+                //даты доставки
+                DateTime curDate = DateTime.Now;
+                order.Delivery.DeliveryDate = curDate.AddDays(5);
+                //записать все в заказ
+                order.Recipient = recipient;
+                order.OrderCart = cart;
+                //вывести инфо о заказе
+                Order<PickPointDelivery>.ShowOrder(order);
             }
         }
         //Проверка числа

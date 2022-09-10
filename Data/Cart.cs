@@ -66,10 +66,6 @@ namespace Store.Models
             {
                 return Count * Price;
             }
-            //set
-            //{
-            //    Sum = Price * Count;
-            //}
         }
 
         public CartItem(int id, Book book, int count, decimal price)
@@ -90,8 +86,6 @@ namespace Store.Models
                 bookItemId = BookIdIndexOf(ref cartItems, book.Id);
                 Console.WriteLine("Id книги в корзине : {0}", bookItemId);
             }
-
-            //var res = Array.Find(cartItems, book => itemId);
             //item exist
             if(bookItemId >= 0)
             {
@@ -117,10 +111,7 @@ namespace Store.Models
         //Remove item
         public static void RemoveItem(CartItem[] cartItems, int cartItemId)
         {
-            //cartItemId = cartItemId - 1;
             int cartItemIndex;
-            //cartItemIndex = Array.IndexOf(cartItems,cartItemId);
-            //Array.Sort()
             cartItemIndex = CartItemIndexOf(cartItems, cartItemId);
             if (cartItemIndex < 0)
             return;

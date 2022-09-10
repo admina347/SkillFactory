@@ -3,8 +3,8 @@ using Store.Models;
 namespace Store
 {
     public abstract class Delivery
-    {
-        public string Address;
+    {  
+        internal readonly string[] PaymentType = new[] {"Наличными при получении", "Банковской картой"};
         //public string Phone;
         public DateTime DeliveryDate { get; set; }
     }
@@ -13,14 +13,17 @@ namespace Store
     {
         //Курьерская служба выбор
         public Courier Сourier;
+        public string Address;
         public string Comment { get; set; }
         public bool toDoor { get; set; }
         public string DTime { get; set; }
+        
         /* доставка на дом. Этот тип будет подразумевать наличие курьера или передачу курьерской компании, в нем будет располагаться своя, отдельная от прочих типов доставки логика. */
     }
-
     public class PickPointDelivery : Delivery
     {
+        public PickPoint PickPoint;
+        
         //пункты выдачи
         //срок хранения
 
