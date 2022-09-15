@@ -6,13 +6,13 @@
         {
             try
             {
-                DirectoryInfo dirInfo = new DirectoryInfo(@"/" /* Или С:\\ для Windows */ );
+                DirectoryInfo dirInfo = new DirectoryInfo(@"/home/admina" /* Или С:\\ для Windows */ );
                 if (dirInfo.Exists)
                 {
                     Console.WriteLine(dirInfo.GetDirectories().Length + dirInfo.GetFiles().Length);
                 }
 
-                DirectoryInfo newDirectory = new DirectoryInfo(@"/newDirectory");
+                DirectoryInfo newDirectory = new DirectoryInfo(@"/home/admina/newDirectory");
                 if (!newDirectory.Exists)
                     newDirectory.Create();
 
