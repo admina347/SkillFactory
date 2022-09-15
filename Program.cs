@@ -6,39 +6,14 @@
         {
             try
             {
-                DirectoryInfo dirInfo = new DirectoryInfo(@"/home/admina" /* Или С:\\ для Windows */ );
-                if (dirInfo.Exists)
-                {
-                    Console.WriteLine(dirInfo.GetDirectories().Length + dirInfo.GetFiles().Length);
-                }
-
-                DirectoryInfo newDirectory = new DirectoryInfo(@"/home/admina/newDirectory");
-                if (!newDirectory.Exists)
-                    newDirectory.Create();
-
-                Console.WriteLine(dirInfo.GetDirectories().Length + dirInfo.GetFiles().Length);
-
-                Console.WriteLine($"Название каталога: {dirInfo.Name}");
-                Console.WriteLine($"Полное название каталога: {dirInfo.FullName}");
-                Console.WriteLine($"Время создания каталога: {dirInfo.CreationTime}");
-                Console.WriteLine($"Корневой каталог: {dirInfo.Root}");
-
+                DirectoryInfo dirInfo = new DirectoryInfo(@"/home/admina/Рабочий стол/testFolder");
+                string trashPath = "/home/admina/.local/share/Trash/files/testFolder";
+                dirInfo.MoveTo(trashPath);
             }
             catch (Exception e)
             {
-                Console.WriteLine(e.Message);
+                Console.WriteLine(e);
             }
-            try
-            {
-                DirectoryInfo dirInfo = new DirectoryInfo(@"/home/admina/newDirectory");
-                dirInfo.Delete(true); // Удаление со всем содержимым
-                Console.WriteLine("Каталог удален");
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine(ex.Message);
-            }
-
         }
     }
 }
