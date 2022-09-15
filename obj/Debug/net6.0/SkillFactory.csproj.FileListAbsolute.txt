@@ -1,0 +1,15 @@
+/home/admina/Документы/VSCode/repos/SkillFactory/obj/Debug/net6.0/SkillFactory.csproj.AssemblyReference.cache
+/home/admina/Документы/VSCode/repos/SkillFactory/obj/Debug/net6.0/SkillFactory.GeneratedMSBuildEditorConfig.editorconfig
+/home/admina/Документы/VSCode/repos/SkillFactory/obj/Debug/net6.0/SkillFactory.AssemblyInfoInputs.cache
+/home/admina/Документы/VSCode/repos/SkillFactory/obj/Debug/net6.0/SkillFactory.AssemblyInfo.cs
+/home/admina/Документы/VSCode/repos/SkillFactory/obj/Debug/net6.0/SkillFactory.csproj.CoreCompileInputs.cache
+/home/admina/Документы/VSCode/repos/SkillFactory/bin/Debug/net6.0/SkillFactory
+/home/admina/Документы/VSCode/repos/SkillFactory/bin/Debug/net6.0/SkillFactory.deps.json
+/home/admina/Документы/VSCode/repos/SkillFactory/bin/Debug/net6.0/SkillFactory.runtimeconfig.json
+/home/admina/Документы/VSCode/repos/SkillFactory/bin/Debug/net6.0/SkillFactory.dll
+/home/admina/Документы/VSCode/repos/SkillFactory/bin/Debug/net6.0/SkillFactory.pdb
+/home/admina/Документы/VSCode/repos/SkillFactory/obj/Debug/net6.0/SkillFactory.dll
+/home/admina/Документы/VSCode/repos/SkillFactory/obj/Debug/net6.0/refint/SkillFactory.dll
+/home/admina/Документы/VSCode/repos/SkillFactory/obj/Debug/net6.0/SkillFactory.pdb
+/home/admina/Документы/VSCode/repos/SkillFactory/obj/Debug/net6.0/SkillFactory.genruntimeconfig.cache
+/home/admina/Документы/VSCode/repos/SkillFactory/obj/Debug/net6.0/ref/SkillFactory.dll
