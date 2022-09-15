@@ -1,25 +1,45 @@
 ﻿using System;
 using System.IO;
-class FileWriter
+ 
+class BinaryExperiment
 {
-    public static void Main()
-    {
-        string filePath = @"/home/admina/Документы/VSCode/repos/SkillFactory/Program.cs"; // Укажем путь
+   const string SettingsFileName = "/home/admina/Загрузки/BinaryFile.bin";
+ 
+   static void Main()
+   {
 
-        var fileInfo = new FileInfo(filePath); // Создаем объект класса FileInfo.
-        //Открываем файл и читаем из него.
-        using (StreamReader sr = fileInfo.OpenText())
-        {
-            string str = "";
-            while ((str = sr.ReadLine()) != null)
-            {
-                Console.WriteLine(str);
-            }
-        }
-        //записываем в него.
-        using (StreamWriter sw = fileInfo.AppendText())
-        {
-            sw.WriteLine("//Последнний запуск: {0}", DateTime.Now);
-        }
-    }
-}//Последнний запуск: 15.09.2022 13:48:38
+       // Считываем
+       ReadValues();
+   }
+ 
+
+ 
+   static void ReadValues()
+   {
+       float FloatValue;
+       string StringValue;
+       int IntValue;
+       bool BooleanValue;
+ 
+       if (File.Exists(SettingsFileName))
+       {
+           // Создаем объект BinaryReader и инициализируем его возвратом метода File.Open.
+           using (BinaryReader reader = new BinaryReader(File.Open(SettingsFileName, FileMode.Open)))
+           {
+               // Применяем специализированные методы Read для считывания соответствующего типа данных.
+               //FloatValue = reader.ReadSingle();
+               StringValue = reader.ReadString();
+               //IntValue = reader.ReadInt32();
+               //BooleanValue = reader.ReadBoolean();
+           }
+ 
+           Console.WriteLine("Из файла считано:");
+ 
+           //Console.WriteLine("Дробь: " + FloatValue);
+           Console.WriteLine("Строка: " + StringValue);
+           //Console.WriteLine("Целое: " + IntValue);
+           //Console.WriteLine("Булево значение " + BooleanValue);
+       }
+       
+   }
+}
