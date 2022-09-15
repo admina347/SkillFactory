@@ -1,5 +1,5 @@
 vs/
-vscode
-obj
-bin
-*.scproj
+vscode/
+obj/
+bin/
+*.csproj
