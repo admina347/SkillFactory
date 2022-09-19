@@ -1,6 +1,6 @@
 ﻿/* Создайте консольное решение, в котором реализуйте конструкцию Try/Catch/Finally 
-для обработки исключения ArgumentOutOfRangeException. 
-В случае исключения отобразите в консоль сообщение об ошибке. */
+для обработки исключения RankException. 
+В случае исключения отобразите в консоль тип исключения (через метод GetType()).*/
 class Program
 {
     static void Main(string[] args)
@@ -8,11 +8,11 @@ class Program
         try
         {
             Console.WriteLine("Блок try начал работу");
-            throw new ArgumentOutOfRangeException("Возникло исключение ArgumentOutOfRangeException");
+            throw new RankException("Возникло исключение RankException");
         }
-        catch (ArgumentOutOfRangeException ex)
+        catch (RankException ex)
         {
-            Console.WriteLine(ex.Message);
+            Console.WriteLine(ex.GetType());
         }
         finally
         {
