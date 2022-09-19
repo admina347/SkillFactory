@@ -4,8 +4,9 @@
   static void Main(string[] args) 
   {
     SubDelegate subDelegate = Sub;
-    int res = subDelegate.Invoke(10, 5);
-    Console.WriteLine(res);
+    int resOne = subDelegate.Invoke(10, 5);
+    int resTwo = subDelegate(10, 5);
+    Console.WriteLine(resOne + " " + resTwo);
   }
 
   static int Sub(int a, int b) 
