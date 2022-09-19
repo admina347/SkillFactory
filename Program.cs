@@ -8,11 +8,11 @@ class Program
         try
         {
             Console.WriteLine("Блок try начал работу");
-            throw new ArgumentOutOfRangeException();
+            throw new ArgumentOutOfRangeException("Возникло исключение ArgumentOutOfRangeException");
         }
-        catch (ArgumentOutOfRangeException)
+        catch (ArgumentOutOfRangeException ex)
         {
-            Console.WriteLine("Возникло исключение ArgumentOutOfRangeException");
+            Console.WriteLine(ex.Message);
         }
         finally
         {
