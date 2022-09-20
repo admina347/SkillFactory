@@ -1,16 +1,27 @@
-﻿public class Program 
+﻿namespace DelegatePractices
 {
-  public delegate int SubDelegate(int a, int b);
-  static void Main(string[] args) 
-  {
-    SubDelegate subDelegate = Sub;
-    int resOne = subDelegate.Invoke(10, 5);
-    int resTwo = subDelegate(10, 5);
-    Console.WriteLine(resOne + " " + resTwo);
-  }
+    class Program
+    {
+        delegate void CalculateDelegate(int a, int b);
+        static void Main(string[] args)
+        {
+            CalculateDelegate calcDelegate = CalculateOne;
 
-  static int Sub(int a, int b) 
-  {
-    return a - b;
-  }
+            calcDelegate += CalculateTwo;
+
+            calcDelegate.Invoke(100, 30);
+
+            Console.Read();
+        }
+
+        static void CalculateOne(int a, int b)
+        {
+            Console.WriteLine(a - b);
+        }
+
+        static void CalculateTwo(int a, int b)
+        {
+            Console.WriteLine(a + b);
+        }
+    }
 }
