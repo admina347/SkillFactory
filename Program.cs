@@ -13,9 +13,5 @@
             Console.Read();
         }
 
-        static void ShowMessage(string _message)
-        {
-            Console.WriteLine(_message);
-        }
     }
 }
