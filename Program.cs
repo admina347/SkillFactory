@@ -8,10 +8,9 @@
             CalculateDelegate calcDelegate = CalculateOne;
 
             calcDelegate += CalculateTwo;
+            calcDelegate -= CalculateTwo;
 
             calcDelegate.Invoke(100, 30);
-
-            Console.Read();
         }
 
         static void CalculateOne(int a, int b)
