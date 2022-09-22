@@ -2,19 +2,15 @@
 {
     class Program
     {
-        delegate void ShowMessageDelegate(string _message);
+        delegate int RandomNumberDelegate();
         static void Main(string[] args)
         {
-            ShowMessageDelegate showMessageDelegate = (string _message) => 
+            RandomNumberDelegate randomNumberDelegate = () =>
             {
-                Console.WriteLine(_message);
+                return new Random().Next(0, 100);
             };
-            showMessageDelegate.Invoke("Hello World!");
-        }
-
-        static void ShowMessage(string _message)
-        {
-            Console.WriteLine(_message);
+            int result = randomNumberDelegate.Invoke();
+            Console.WriteLine(result);
         }
     }
 }
