@@ -1,16 +1,27 @@
-﻿namespace DelegatePractices
+﻿namespace CovAndContrPractices
 {
     class Program
     {
-        delegate int RandomNumberDelegate();
+        public delegate Car HandlerMethod();
+
+        public static Car CarHandler()
+        {
+            return null;
+        }
+
+        public static Lexus LexusHandler()
+        {
+            return null;
+        }
+
         static void Main(string[] args)
         {
-            RandomNumberDelegate randomNumberDelegate = () =>
-            {
-                return new Random().Next(0, 100);
-            };
-            int result = randomNumberDelegate.Invoke();
-            Console.WriteLine(result);
+            HandlerMethod handlerLexus = LexusHandler;
+
         }
     }
+
+    class Car { }
+
+    class Lexus : Car {  }
 }
