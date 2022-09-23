@@ -8,8 +8,6 @@
             IHumans rHumans;
             rHumans = new Humans();
             Human[] humans = rHumans.GetAll();
-            
-            //
             NumberReader numberReader = new NumberReader();
             numberReader.NumberInputEvent += SortHuman;
             try
