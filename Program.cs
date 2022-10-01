@@ -7,36 +7,35 @@
 
         }
     }
-    public class FileManager : IWriter, IReader, IMailer
+    public class Entity : ICreatable, IDeletable, IUpdatable
     {
-        public void Read()
+        public void Create()
         {
             throw new NotImplementedException();
         }
 
-        public void SendEmail()
+        public void Delete()
         {
             throw new NotImplementedException();
         }
 
-        public void Write()
+        public void Update()
         {
             throw new NotImplementedException();
         }
     }
-
-    public interface IWriter
+    public interface ICreatable
     {
-        void Write();
+        void Create();
     }
 
-    public interface IReader
+    public interface IDeletable
     {
-        void Read();
+        void Delete();
     }
 
-    public interface IMailer
+    public interface IUpdatable
     {
-        void SendEmail();
+        void Update();
     }
 }
