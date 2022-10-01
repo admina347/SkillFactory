@@ -7,35 +7,31 @@
 
         }
     }
-    public class Entity : ICreatable, IDeletable, IUpdatable
+    public class ElectronicBook : IBook, IDevice
     {
-        public void Create()
+        void IBook.Read()
         {
             throw new NotImplementedException();
         }
 
-        public void Delete()
+        void IDevice.TurnOff()
         {
             throw new NotImplementedException();
         }
 
-        public void Update()
+        void IDevice.TurnOn()
         {
             throw new NotImplementedException();
         }
     }
-    public interface ICreatable
+    public interface IBook
     {
-        void Create();
+        void Read();
     }
 
-    public interface IDeletable
+    public interface IDevice
     {
-        void Delete();
-    }
-
-    public interface IUpdatable
-    {
-        void Update();
+        void TurnOn();
+        void TurnOff();
     }
 }
