@@ -6,13 +6,13 @@
         {
             Writer writer = new Writer();
 
-            ((IWriter)writer).Write();
+            writer.Write();
         }
     }
 
     public class Writer : IWriter
     {
-        void IWriter.Write()
+        public void Write()
         {
             Console.WriteLine("Write");
         }
