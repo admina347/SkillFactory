@@ -7,7 +7,7 @@
             IMessenger<Phone> viberInPhone = new Viber<Phone>();
             IMessenger<IPhone> viberInIPhone = new Viber<IPhone>();
 
-IMessenger<Phone> viberInIphone = new Viber<IPhone>();
+            IMessenger<Phone> viberInIphone = new Viber<IPhone>();
 
             viberInPhone.DeviceInfo();
             viberInIphone.DeviceInfo();
