@@ -4,34 +4,30 @@
     {
         static void Main(string[] args)
         {
+            IMessenger<Phone> viberInPhone = new Viber<Phone>();
+            IMessenger<IPhone> viberInIPhone = new Viber<IPhone>();
 
+IMessenger<Phone> viberInIphone = new Viber<IPhone>();
+
+            viberInPhone.DeviceInfo();
+            viberInIphone.DeviceInfo();
         }
     }
-    public class ElectronicBook : IBook, IDevice
+    public class Viber<T> : IMessenger<T> where T : Phone,
+    new()
     {
-        void IBook.Read()
+        public T DeviceInfo()
         {
-            throw new NotImplementedException();
-        }
-
-        void IDevice.TurnOff()
-        {
-            throw new NotImplementedException();
-        }
-
-        void IDevice.TurnOn()
-        {
-            throw new NotImplementedException();
+            T device = new T();
+            Console.WriteLine(device);
+            return new T();
         }
     }
-    public interface IBook
-    {
-        void Read();
-    }
+    public class Phone { }
 
-    public interface IDevice
+    public class IPhone : Phone { }
+    public interface IMessenger<out T>
     {
-        void TurnOn();
-        void TurnOff();
+        T DeviceInfo();
     }
 }
