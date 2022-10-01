@@ -4,22 +4,22 @@
     {
         static void Main(string[] args)
         {
-            Writer writer = new Writer();
+            Worker worker = new Worker();
+            ((IWorker) worker).Build();
 
-            writer.Write();
         }
     }
 
-    public class Writer : IWriter
+    public class Worker : IWorker
     {
-        public void Write()
+        void IWorker.Build()
         {
-            Console.WriteLine("Write");
+            Console.WriteLine("Build");
         }
     }
 
-    public interface IWriter
+    public interface IWorker
     {
-        void Write();
+        public void Build();
     }
 }
