@@ -4,22 +4,39 @@
     {
         static void Main(string[] args)
         {
-            Worker worker = new Worker();
-            ((IWorker) worker).Build();
 
         }
     }
-
-    public class Worker : IWorker
+    public class FileManager : IWriter, IReader, IMailer
     {
-        void IWorker.Build()
+        public void Read()
         {
-            Console.WriteLine("Build");
+            throw new NotImplementedException();
+        }
+
+        public void SendEmail()
+        {
+            throw new NotImplementedException();
+        }
+
+        public void Write()
+        {
+            throw new NotImplementedException();
         }
     }
 
-    public interface IWorker
+    public interface IWriter
     {
-        public void Build();
+        void Write();
+    }
+
+    public interface IReader
+    {
+        void Read();
+    }
+
+    public interface IMailer
+    {
+        void SendEmail();
     }
 }
