@@ -4,30 +4,31 @@
     {
         static void Main(string[] args)
         {
-            IMessenger<Phone> viberInPhone = new Viber<Phone>();
-            IMessenger<IPhone> viberInIPhone = new Viber<IPhone>();
+            IUpdater<User> serviceUser = new UserService<User>();
+            serviceUser.Update(new User());
 
-            IMessenger<Phone> viberInIphone = new Viber<IPhone>();
-
-            viberInPhone.DeviceInfo();
-            viberInIphone.DeviceInfo();
+            IUpdater<Account> serviceAccount = new UserService<Account>();
+            serviceAccount.Update(new Account());
         }
     }
-    public class Viber<T> : IMessenger<T> where T : Phone,
-    new()
+    public class User
     {
-        public T DeviceInfo()
+
+    }
+
+    public class Account : User
+    {
+
+    }
+    class UserService<T> : IUpdater<T> where T : User
+    {
+        public void Update(T entity)
         {
-            T device = new T();
-            Console.WriteLine(device);
-            return new T();
+            Console.WriteLine(entity.GetType());
         }
     }
-    public class Phone { }
-
-    public class IPhone : Phone { }
-    public interface IMessenger<out T>
+    public interface IUpdater<in T>
     {
-        T DeviceInfo();
+        void Update(T entity);
     }
 }
