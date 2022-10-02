@@ -2,31 +2,37 @@
 {
     class Program
     {
+        static ILogger Logger { get; set; }
         static void Main(string[] args)
         {
+            Logger = new Logger();
             Calc calc = new Calc();
             int a = 0, b = 0;
             string calcAction = "+";
         inp:
             try
             {
+                Console.ForegroundColor = ConsoleColor.White;
                 Console.WriteLine("Введите число 1");
-                a = calc.Read();
+                a = calc.Read(Logger);
+                Console.ForegroundColor = ConsoleColor.White;
                 Console.WriteLine("Введите число 2");
-                b = calc.Read();
-                //Console.WriteLine("Введите действие: Сложение +, Вычитание -, Умножение *, Деление /.");
-                calcAction = calc.ReadAction();
-                //Console.WriteLine(calcAction);
-                calc.GetResult(a, b, calcAction);
+                b = calc.Read(Logger);
+                Console.ForegroundColor = ConsoleColor.White;
+                calcAction = calc.ReadAction(Logger);
+                Console.ForegroundColor = ConsoleColor.White;
+                calc.GetResult(a, b, calcAction, Logger);
+                //end
+                Console.ReadKey();  //не треуется в Linux поэтому забываю иногда.
             }
             catch (FormatException)
             {
-                Console.WriteLine("Введено не корректное значение");
+                Logger.Error("Введено не корректное значение");
                 goto inp;
             }
-            catch (IndexOutOfRangeException)
+            catch (Exception ex)
             {
-                Console.WriteLine("Введеное значение находится за пределами границ массива или коллекции.");
+                Logger.Error(ex.Message);
             }
         }
     }
