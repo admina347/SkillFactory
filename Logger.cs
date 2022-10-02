@@ -4,7 +4,6 @@ namespace Unit10
     {
         void ILogger.Error(string message)
         {
-            //Console.BackgroundColor = ConsoleColor.Red;
             Console.ForegroundColor = ConsoleColor.Red;
             Console.WriteLine(message);
         }
