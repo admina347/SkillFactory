@@ -1,39 +1,32 @@
-﻿namespace Unit10
-{
-    class Program
-    {
-        static ILogger Logger { get; set; }
-        static void Main(string[] args)
-        {
-            Logger = new Logger();
-            Calc calc = new Calc();
-            int a = 0, b = 0;
-            string calcAction = "+";
-        inp:
-            try
-            {
-                Console.ForegroundColor = ConsoleColor.White;
-                Console.WriteLine("Введите число 1");
-                a = calc.Read(Logger);
-                Console.ForegroundColor = ConsoleColor.White;
-                Console.WriteLine("Введите число 2");
-                b = calc.Read(Logger);
-                Console.ForegroundColor = ConsoleColor.White;
-                calcAction = calc.ReadAction(Logger);
-                Console.ForegroundColor = ConsoleColor.White;
-                calc.GetResult(a, b, calcAction, Logger);
-                //end
-                Console.ReadKey();  //не треуется в Linux поэтому забываю иногда.
-            }
-            catch (FormatException)
-            {
-                Logger.Error("Введено не корректное значение");
-                goto inp;
-            }
-            catch (Exception ex)
-            {
-                Logger.Error(ex.Message);
-            }
-        }
-    }
-}
+﻿namespace Unit13_3;
+
+class Program
+   {
+       static void Main(string[] args)
+       {
+           int [,] myArray =
+           {
+               { 5, 8, 3, 10 },
+               { 13, 2, 1, 7 },
+               { 0, 2, 5, 2 },
+               { 3, 8, 3, 45 },
+               { 2, 4, 31, 4 }
+           };
+          
+           // Двумерный массив можно представить в виде таблицы.
+ 
+           //  сохраним длину первого измерения массива (ширина таблицы)
+           int rowLength = myArray.GetLength(0);
+          
+           //  сохраним длину второго измерения массива (высота таблицы)
+           int columnLength = myArray.GetLength(1);
+ 
+           // проход по рядам
+           for (int i = 0; i < rowLength; i++)
+           {
+               // проход по колонкам
+               for (int j = 0; j < columnLength; j++)
+                   Console.WriteLine(myArray[i, j]);
+           }
+       }
+   }
