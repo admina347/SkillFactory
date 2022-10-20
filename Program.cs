@@ -1,53 +1,26 @@
-﻿using System.Collections;
-using System.Text;
-
-namespace ArrayListExample
+﻿using System.Collections.Generic;
+ 
+namespace CountWords
 {
    class Program
    {
        static void Main(string[] args)
        {
-           // Объявим ArrayList с элементами разных типов
-           var arrayList = new ArrayList()
-           {
-               1,
-               "Андрей ",
-               "Сергей ",
-               300,
-           };
+           // Сохраняем предложение в строку
+           var sentence =
+               "Подсчитайте, сколько уникальных символов в этом предложении, используя HashSet<T>, учитывая знаки препинания, но не учитывая пробелы в начале и в конце предложения.";
           
-           // переменная для хранения суммы
-           int sum = 0;
+           // сохраняем в массив char
+           var characters = sentence.ToCharArray();
           
-           // переменная для хранения текста.
-           // Можно было бы использовать String, но в случае когда необходимо выполнять много
-           // операций с одной строкой - лучше использовать класс StringBuilder
-           StringBuilder text = new StringBuilder();
+           var symbols = new HashSet<char>();
+     
+           // добавляем во множество. Сохраняются только неповторяющиеся символы
+           foreach (var symbol in characters)
+               symbols.Add(symbol);
           
-           // проходим список и проверяем элементы на соответствие типу
-           foreach (var element in arrayList)
-           {
-               //   если целое число - увеличиваем счётчик
-               if (element is int)
-               {
-                   sum += (int)element;
-               }
- 
-               // если строка - добавляем текст из неё
-               if (element is string s)
-               {
-                   text.Append(element);
-               }
-           }
-          
-           // результат
-           var result = new ArrayList() { sum, text.ToString() } ;
- 
-           // вывод
-           foreach (var elem in result)
-           {
-               Console.WriteLine(elem);
-           }
+           // Выводим результат
+           Console.WriteLine(symbols.Count);
        }
    }
 }
