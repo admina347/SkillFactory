@@ -1,26 +1,53 @@
-﻿namespace ArrayPractice
+﻿using System.Collections;
+using System.Text;
+
+namespace ArrayListExample
 {
    class Program
    {
        static void Main(string[] args)
        {
-           //  вернет true
-           Console.WriteLine(CheckAscending( new []{ -1,  2, 3,  4 , 8  } ));
-          
-           //  вернет false
-           Console.WriteLine(CheckAscending( new []{ -1,  2, 3,  10 , 8  } ));
-       }
- 
-       static bool CheckAscending(int[] numbers)
-       {
-           //  используем цикл for для обхода массива
-           for (int i = 0; i < numbers.Length - 1; i++)
+           // Объявим ArrayList с элементами разных типов
+           var arrayList = new ArrayList()
            {
-               //  проверяем следующий элемент на предмет того, что он меньше предыдушего
-               if (numbers[i+1] < numbers[i])
-                   return false;
+               1,
+               "Андрей ",
+               "Сергей ",
+               300,
+           };
+          
+           // переменная для хранения суммы
+           int sum = 0;
+          
+           // переменная для хранения текста.
+           // Можно было бы использовать String, но в случае когда необходимо выполнять много
+           // операций с одной строкой - лучше использовать класс StringBuilder
+           StringBuilder text = new StringBuilder();
+          
+           // проходим список и проверяем элементы на соответствие типу
+           foreach (var element in arrayList)
+           {
+               //   если целое число - увеличиваем счётчик
+               if (element is int)
+               {
+                   sum += (int)element;
+               }
+ 
+               // если строка - добавляем текст из неё
+               if (element is string s)
+               {
+                   text.Append(element);
+               }
            }
-           return true;
+          
+           // результат
+           var result = new ArrayList() { sum, text.ToString() } ;
+ 
+           // вывод
+           foreach (var elem in result)
+           {
+               Console.WriteLine(elem);
+           }
        }
    }
 }
