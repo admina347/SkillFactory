@@ -1,32 +1,26 @@
-﻿namespace Unit13_3;
-
-class Program
+﻿namespace ArrayPractice
+{
+   class Program
    {
        static void Main(string[] args)
        {
-           int [,] myArray =
-           {
-               { 5, 8, 3, 10 },
-               { 13, 2, 1, 7 },
-               { 0, 2, 5, 2 },
-               { 3, 8, 3, 45 },
-               { 2, 4, 31, 4 }
-           };
+           //  вернет true
+           Console.WriteLine(CheckAscending( new []{ -1,  2, 3,  4 , 8  } ));
           
-           // Двумерный массив можно представить в виде таблицы.
+           //  вернет false
+           Console.WriteLine(CheckAscending( new []{ -1,  2, 3,  10 , 8  } ));
+       }
  
-           //  сохраним длину первого измерения массива (ширина таблицы)
-           int rowLength = myArray.GetLength(0);
-          
-           //  сохраним длину второго измерения массива (высота таблицы)
-           int columnLength = myArray.GetLength(1);
- 
-           // проход по рядам
-           for (int i = 0; i < rowLength; i++)
+       static bool CheckAscending(int[] numbers)
+       {
+           //  используем цикл for для обхода массива
+           for (int i = 0; i < numbers.Length - 1; i++)
            {
-               // проход по колонкам
-               for (int j = 0; j < columnLength; j++)
-                   Console.WriteLine(myArray[i, j]);
+               //  проверяем следующий элемент на предмет того, что он меньше предыдушего
+               if (numbers[i+1] < numbers[i])
+                   return false;
            }
+           return true;
        }
    }
+}
