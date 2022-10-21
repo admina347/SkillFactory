@@ -1,58 +1,39 @@
 ﻿using System;
-using System.Collections.Concurrent;
-using System.Threading;
+using System.Collections.Generic;
+using System.Diagnostics;
 
-namespace StackTest
+namespace PhoneBook
 {
     class Program
     {
-        // объявим потокобезопасную очередь (полностью идентична обычной очереди, но
-        // позволяет безопасный доступ
-        // из разных потоков)
-        public static ConcurrentQueue<string> words = new ConcurrentQueue<string>();
+        //  Объявим  простой  словарь
+        private static Dictionary<string, Contact> PhoneBook = new Dictionary<String, Contact>()
+        {
+            ["Игорь"] = new Contact(79990000000, "igor@example.com"),
+            ["Андрей"] = new Contact(79990000001, "andrew@example.com"),
+        };
 
         static void Main(string[] args)
         {
-            Console.WriteLine("Введите слово и нажмите Enter, чтобы добавить его в очередь.");
-            Console.WriteLine();
+            // Запустим таймер
+            var watchTwo = Stopwatch.StartNew();
 
-            //  запустим обработку очереди в отдельном потоке
-            StartQueueProcessing();
+            // Выполним вставку
+            PhoneBook.TryAdd("Диана", new Contact(79160000002, "diana@example.com"));
 
-            while (true)
-            {
-                var input = Console.ReadLine();
-
-                // если введена нужная нам команда - смотрим, кто крайний в очереди
-                if (input == "peek")
-                {
-                    if (words.TryPeek(out var elem))
-                        Console.WriteLine(elem);
-                }
-                else
-                {
-                    // если не введена - ставим элемент в очередь, как и обычно
-                    words.Enqueue(input);
-                }
-            }
+            // Выведем результат
+            Console.WriteLine($"Вставка в  словарь: {watchTwo.Elapsed.TotalMilliseconds}  мс");
         }
+    }
 
-        // метод, который обрабатывает и разбирает нашу очередь в отдельном потоке
-        // ( для выполнения задания изменять его не нужно )
-        static void StartQueueProcessing()
+    public class Contact // модель класса
+    {
+        public Contact(long phoneNumber, String email) // метод-конструктор
         {
-            new Thread(() =>
-            {
-                Thread.CurrentThread.IsBackground = true;
-
-                while (true)
-                {
-                    Thread.Sleep(5000);
-                    if (words.TryDequeue(out var element))
-                        Console.WriteLine("======>  " + element + " прошел очередь");
-                }
-
-            }).Start();
+            PhoneNumber = phoneNumber;
+            Email = email;
         }
+        public long PhoneNumber { get; set; }
+        public String Email { get; set; }
     }
 }
