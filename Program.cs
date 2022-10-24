@@ -6,12 +6,7 @@ namespace PhoneBook
 {
     class Program
     {
-        //  Объявим  сортированный  словарь
-        private static SortedDictionary<string, Contact> SortedPhoneBook = new SortedDictionary<String, Contact>()
-        {
-            ["Игорь"] = new Contact(79990000000, "igor@example.com"),
-            ["Андрей"] = new Contact(79990000001, "andrew@example.com"),
-        };
+        
 
         static void Main(string[] args)
         {
@@ -19,21 +14,35 @@ namespace PhoneBook
             var watchTwo = Stopwatch.StartNew();
 
             // Выполним вставку
-            SortedPhoneBook.TryAdd("Диана", new Contact(79160000002, "diana@example.com"));
+            List<string> list = new List<string>();
+            String line;
+            try
+            {
+                //Pass the file path and file name to the StreamReader constructor
+                StreamReader sr = new StreamReader("/home/admina/Документы/C-sharp курс/module13/Text1.txt");
+                //Read the first line of text
+                Console.WriteLine("Открыли файл");
+                line = sr.ReadLine();
+                //Continue to read until you reach end of file
+                while (line != null)
+                {
+                    //write the line to list
+                    list.Add(line);
+                    //Read the next line
+                    line = sr.ReadLine();
+                }
+                //close the file
+                sr.Close();
+                Console.WriteLine("Закрыли файл");
+            }
+            catch(Exception e)
+            {
+                Console.WriteLine("Exception: " + e.Message);
+            }
 
             // Выведем результат
-            Console.WriteLine($"Вставка в сортированный словарь: {watchTwo.Elapsed.TotalMilliseconds}  мс");
+            Console.WriteLine($"Вставка в список: {watchTwo.Elapsed.TotalMilliseconds}  мс");
+            Console.ReadLine();
         }
-    }
-
-    public class Contact // модель класса
-    {
-        public Contact(long phoneNumber, String email) // метод-конструктор
-        {
-            PhoneNumber = phoneNumber;
-            Email = email;
-        }
-        public long PhoneNumber { get; set; }
-        public String Email { get; set; }
     }
 }
