@@ -6,7 +6,7 @@ namespace PhoneBook
 {
     class Program
     {
-        
+
 
         static void Main(string[] args)
         {
@@ -14,7 +14,7 @@ namespace PhoneBook
             var watchTwo = Stopwatch.StartNew();
 
             // Выполним вставку
-            List<string> list = new List<string>();
+            LinkedList<string> list = new LinkedList<string>();
             String line;
             try
             {
@@ -27,7 +27,7 @@ namespace PhoneBook
                 while (line != null)
                 {
                     //write the line to list
-                    list.Add(line);
+                    list.AddLast(line);
                     //Read the next line
                     line = sr.ReadLine();
                 }
@@ -35,13 +35,20 @@ namespace PhoneBook
                 sr.Close();
                 Console.WriteLine("Закрыли файл");
             }
-            catch(Exception e)
+            catch (Exception e)
             {
                 Console.WriteLine("Exception: " + e.Message);
             }
-
             // Выведем результат
             Console.WriteLine($"Вставка в список: {watchTwo.Elapsed.TotalMilliseconds}  мс");
+            //просмотреть список от начала до конца списка
+            /* var currentNode = list.First;
+            while (currentNode != null)
+            {
+                Console.WriteLine(currentNode.Value);
+                currentNode = currentNode.Next;
+            } */
+            Console.WriteLine(list.First());
             Console.ReadLine();
         }
     }
