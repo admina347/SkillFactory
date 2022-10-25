@@ -8,19 +8,18 @@ namespace module14
     {
         static void Main(string[] args)
         {
-            var numsList = new List<int[]>()
-{
-   new[] {2, 3, 7, 1},
-   new[] {45, 17, 88, 0},
-   new[] {23, 32, 44, -6},
-};
-            var orderedNums = numsList
-               .SelectMany(s => s) // выбираем элементы
-               .OrderBy(s => s); // сортируем
-
-            // выводим
-            foreach (var ord in orderedNums)
-                Console.WriteLine(ord);
+            var companies = new Dictionary<string, string[]>( );
+          
+           companies.Add("Apple", new []{ "Mobile",  "Desktop"  });
+           companies.Add("Samsung", new []{ "Mobile"} );
+           companies.Add("IBM", new []{ "Desktop" } );
+ 
+           var mobileCompanies = companies
+                   // смотрим те из выборки, значения в которых содержат искомое
+               .Where(c => c.Value.Contains("Mobile"));
+ 
+           foreach (var company in mobileCompanies)
+               Console.WriteLine(company.Key);
         }
     }
 }
