@@ -9,6 +9,9 @@ namespace module14
 
         static void Main(string[] args)
         {
+            // Словарь для хранения стран с городами
+            var Countries = new Dictionary<string, List<City>>();
+
             // Добавим Россию с её городами
             var russianCities = new List<City>();
             russianCities.Add(new City("Москва", 11900000));
@@ -16,16 +19,30 @@ namespace module14
             russianCities.Add(new City("Волгоград", 1099000));
             russianCities.Add(new City("Казань", 1169000));
             russianCities.Add(new City("Севастополь", 449138));
+            Countries.Add("Россия", russianCities);
 
-            var bigCities = russianCities.Where(c => c.Population > 1000000)
-  .OrderByDescending(c => c.Population);
-            foreach (var bigCity in bigCities)
-                Console.WriteLine(bigCity.Name + " - " + bigCity.Population);
+            // Добавим Беларусь
+            var belarusCities = new List<City>();
+            belarusCities.Add(new City("Минск", 1200000));
+            belarusCities.Add(new City("Витебск", 362466));
+            belarusCities.Add(new City("Гродно", 368710));
+            Countries.Add("Беларусь", belarusCities);
 
-            var shortNameCities = russianCities.Where(city => city.Name.Length <= 10) // выборка городов с коротким именем
-                                .OrderBy(city => city.Name.Length);  // сортировка по длине имени
-            foreach (var city in shortNameCities)
-                Console.WriteLine(city.Name);
+            // Добавим США
+            var americanCities = new List<City>();
+            americanCities.Add(new City("Нью-Йорк", 8399000));
+            americanCities.Add(new City("Вашингтон", 705749));
+            americanCities.Add(new City("Альбукерке", 560218));
+            Countries.Add("США", americanCities);
+
+            var cities = from country in Countries // пройдемся по странам
+                         from city in country.Value // пройдемся по городам
+                         where city.Population > 1000000 // выберем города - миллионники
+                         orderby city.Population descending // отсортируем по населению
+                         select city;
+
+            foreach (var city in cities)
+                Console.WriteLine(city.Name + " - " + city.Population);
         }
 
         // Создадим модель класс для города
