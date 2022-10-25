@@ -8,19 +8,19 @@ namespace module14
     {
         static void Main(string[] args)
         {
-            string[] text = 
-            { "Раз два три",
-            "четыре пять шесть",
-            "семь восемь девять" 
-            };
+            var numsList = new List<int[]>()
+{
+   new[] {2, 3, 7, 1},
+   new[] {45, 17, 88, 0},
+   new[] {23, 32, 44, -6},
+};
+            var orderedNums = numsList
+               .SelectMany(s => s) // выбираем элементы
+               .OrderBy(s => s); // сортируем
 
-            var words = from str in text // пробегаемся по элементам массива
-                        from word in str.Split(' ') // дробим каждый элемент по пробелам, сохраняя в новую последовательность
-                        select word; // собираем все куски в результирующую выборку
-
-            // выводим результат
-            foreach (var word in words)
-                Console.WriteLine(word);
+            // выводим
+            foreach (var ord in orderedNums)
+                Console.WriteLine(ord);
         }
     }
 }
