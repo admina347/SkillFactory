@@ -38,7 +38,9 @@ namespace module14
                 else
                 {
                     // пропускаем нужное количество элементов и берем 2 для показа на странице
-                    var pageContent = phoneBook.Skip((pageNumber - 1) * 2).Take(2);
+                    var pageContent = phoneBook.Skip((pageNumber - 1) * 2).Take(2)
+                    .OrderBy(phoneBook => phoneBook.Name)   //отсортированы сперва по имени, а затем по фамилии.
+                    .ThenBy(phoneBook => phoneBook.LastName);
                     Console.WriteLine();
 
                     // выводим результат
