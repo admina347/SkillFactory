@@ -2,39 +2,67 @@
 using System.Collections.Generic;
 using System.Linq;
 
-namespace module14;
-
-class Program
+namespace module14
 {
-    static void Main(string[] args)
+    class Program
     {
-        // Подготовка данных
-        var cars = new List<Car>()
+        static void Main(string[] args)
         {
-            new Car("Suzuki", "JP"),
-            new Car("Toyota", "JP"),
-            new Car("Opel", "DE"),
-            new Car("Kamaz", "RUS"),
-            new Car("Lada", "RUS"),
-            new Car("Lada", "RUS"),
-            new Car("Honda", "JP"),
-        };
-        Console.Clear();
-        cars.RemoveAll(car => car.CountryCode == "JP");
+            //  создаём пустой список с типом данных Contact
+            var phoneBook = new List<Contact>();
 
+            // добавляем контакты
+            phoneBook.Add(new Contact("Игорь", "Николаев", 79990000001, "igor@example.com"));
+            phoneBook.Add(new Contact("Сергей", "Довлатов", 79990000010, "serge@example.com"));
+            phoneBook.Add(new Contact("Анатолий", "Карпов", 79990000011, "anatoly@example.com"));
+            phoneBook.Add(new Contact("Валерий", "Леонтьев", 79990000012, "valera@example.com"));
+            phoneBook.Add(new Contact("Сергей", "Брин", 799900000013, "serg@example.com"));
+            phoneBook.Add(new Contact("Иннокентий", "Смоктуновский", 799900000013, "innokentii@example.com"));
 
-        foreach (var car in cars)
-            Console.WriteLine(car.Manufacturer);
+            //
+            while (true)
+            {
+                // Читаем введенный с консоли символ
+                var input = Console.ReadKey().KeyChar;
+
+                // проверяем, число ли это
+                var parsed = Int32.TryParse(input.ToString(), out int pageNumber);
+
+                // если не соответствует критериям - показываем ошибку
+                if (!parsed || pageNumber < 1 || pageNumber > 3)
+                {
+                    Console.WriteLine();
+                    Console.WriteLine("Страницы не существует");
+                }
+                // если соответствует - запускаем вывод
+                else
+                {
+                    // пропускаем нужное количество элементов и берем 2 для показа на странице
+                    var pageContent = phoneBook.Skip((pageNumber - 1) * 2).Take(2);
+                    Console.WriteLine();
+
+                    // выводим результат
+                    foreach (var entry in pageContent)
+                        Console.WriteLine(entry.Name + " " + entry.LastName + ": " + entry.PhoneNumber);
+
+                    Console.WriteLine();
+                }
+            }
+        }
     }
-}
-public class Car
-{
-   public string Manufacturer { get; set; }
-   public string CountryCode { get; set; }
- 
-   public Car(string manufacturer, string countryCode)
-   {
-       Manufacturer = manufacturer;
-       CountryCode = countryCode;
-   }
+    public class Contact // модель класса
+    {
+        public Contact(string name, string lastName, long phoneNumber, String email) // метод-конструктор
+        {
+            Name = name;
+            LastName = lastName;
+            PhoneNumber = phoneNumber;
+            Email = email;
+        }
+
+        public String Name { get; }
+        public String LastName { get; }
+        public long PhoneNumber { get; }
+        public String Email { get; }
+    }
 }
