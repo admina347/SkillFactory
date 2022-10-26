@@ -8,18 +8,17 @@ namespace module14
     {
         static void Main(string[] args)
         {
-            var companies = new Dictionary<string, string[]>( );
-          
-           companies.Add("Apple", new []{ "Mobile",  "Desktop"  });
-           companies.Add("Samsung", new []{ "Mobile"} );
-           companies.Add("IBM", new []{ "Desktop" } );
- 
-           var mobileCompanies = companies
-                   // смотрим те из выборки, значения в которых содержат искомое
-               .Where(c => c.Value.Contains("Mobile"));
- 
-           foreach (var company in mobileCompanies)
-               Console.WriteLine(company.Key);
+            string[] words = { "Обезьяна", "Лягушка", "Кот", "Собака", "Черепаха" };
+            // проекция в анонимный тип
+            var sWords = words.Select(w => new
+            {
+                Name = w,
+                Length = w.Length
+            })
+            .OrderBy(word => word.Length);
+            // выводим
+            foreach (var word in sWords)
+                Console.WriteLine($"{word.Name} - {word.Length} букв");
         }
     }
 }
