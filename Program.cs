@@ -2,61 +2,72 @@
 using System.Collections.Generic;
 using System.Linq;
 
-namespace module14
+namespace module14;
+
+class Program
 {
-    class Program
+    static void Main(string[] args)
     {
-        static void Main(string[] args)
+        var contacts = new List<Contact>()
+            {
+                new Contact() { Name = "Андрей", Phone = 7999945005 },
+                new Contact() { Name = "Сергей", Phone = 799990455 },
+                new Contact() { Name = "Иван", Phone = 79999675 },
+                new Contact() { Name = "Игорь", Phone = 8884994 },
+                new Contact() { Name = "Анна", Phone = 665565656 },
+                new Contact() { Name = "Василий", Phone = 3434 }
+            };
+        // бесконечный цикл, ожидающий ввод с консоли
+        while (true)
         {
-            // Список студентов
-            var students = new List<Student>
-            {
-                new Student {Name="Андрей", Age=23, Languages = new List<string> {"английский", "немецкий" }},
-                new Student {Name="Сергей", Age=27, Languages = new List<string> {"английский", "французский" }},
-                new Student {Name="Дмитрий", Age=29, Languages = new List<string> {"английский", "испанский" }}
-            };
+            var keyChar = Console.ReadKey().KeyChar; // получаем символ с консоли
+            Console.Clear();  //  очистка консоли от введенного текста
 
-            // Список курсов
-            var coarses = new List<Coarse>
+            //  ВАШ КОД ЗДЕСЬ
+            if (!Char.IsDigit(keyChar))
             {
-                new Coarse {Name="Язык программирования C#", StartDate = new DateTime(2020, 12, 20)},
-                new Coarse {Name="Язык SQL и реляционные базы данных", StartDate = new DateTime(2020, 12, 15)},
-            };
-            var studentsWithCoarses = from stud in students
-                                      where stud.Age < 29 // берем всех студентов младше 29
-                                      where stud.Languages.Contains("английский") // ищем тех, у кого в списке языков есть английский
-                                      let birthYear = DateTime.Now.Year - stud.Age // Вычисляем год рождения
-                                      from coarse in coarses
-                                      where coarse.Name.Contains("C#") // теперь выбираем только курс по C#
-                                      select new // выборка в новую сущность
-                                      {
-                                          Name = stud.Name,
-                                          BirthYear = birthYear,
-                                          CoarseName = coarse.Name
-                                      };
+                Console.WriteLine("Ошибка ввода, введите число");
+            }
+            else
+            {
+                //  переменная для хранения запроса в зависимости от введенного с консоли числа
+                IEnumerable<Contact> page = null;
 
-            // выведем результат
-            foreach (var stud in studentsWithCoarses)
-                Console.WriteLine($"Студент {stud.Name} ({stud.BirthYear}) добавлен курс {stud.CoarseName}");
+                //  выбираем нужное кол-во элементов для создания постраничного ввода в зависимости от запроса
+                switch (keyChar)
+                {
+                    case ('1'):
+                        page = contacts.Take(2);
+                        break;
+                    case ('2'):
+                        page = contacts.Skip(2).Take(2);
+                        break;
+                    case ('3'):
+                        page = contacts.Skip(4).Take(2);
+                        break;
+                }
+
+                //   проверим, что ввели существующий номер страницы
+                if (page == null)
+                {
+                    Console.WriteLine($"Ошибка ввода, страницы {keyChar} не существует");
+                    continue;
+                }
+
+                // вывод результата на консоль
+                foreach (var contact in page)
+                    Console.WriteLine(contact.Name + " " + contact.Phone);
+            }
         }
     }
+}
 
-    internal class Coarse
+internal class Contact
+{
+    public Contact()
     {
-        public string Name { get; set; }
-        public DateTime StartDate { get; set; }
     }
 
-    public class Application
-    {
-        public string Name { get; set; }
-        public int YearOfBirth { get; set; }
-    }
-
-    internal class Student
-    {
-        public string Name { get; internal set; }
-        public int Age { get; internal set; }
-        public List<string> Languages { get; internal set; }
-    }
+    public string Name { get; set; }
+    public long Phone { get; set; }
 }
