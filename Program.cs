@@ -8,66 +8,33 @@ class Program
 {
     static void Main(string[] args)
     {
-        var contacts = new List<Contact>()
-            {
-                new Contact() { Name = "Андрей", Phone = 7999945005 },
-                new Contact() { Name = "Сергей", Phone = 799990455 },
-                new Contact() { Name = "Иван", Phone = 79999675 },
-                new Contact() { Name = "Игорь", Phone = 8884994 },
-                new Contact() { Name = "Анна", Phone = 665565656 },
-                new Contact() { Name = "Василий", Phone = 3434 }
-            };
-        // бесконечный цикл, ожидающий ввод с консоли
-        while (true)
+        // Подготовка данных
+        var cars = new List<Car>()
         {
-            var keyChar = Console.ReadKey().KeyChar; // получаем символ с консоли
-            Console.Clear();  //  очистка консоли от введенного текста
+            new Car("Suzuki", "JP"),
+            new Car("Toyota", "JP"),
+            new Car("Opel", "DE"),
+            new Car("Kamaz", "RUS"),
+            new Car("Lada", "RUS"),
+            new Car("Lada", "RUS"),
+            new Car("Honda", "JP"),
+        };
+        Console.Clear();
+        cars.RemoveAll(car => car.CountryCode == "JP");
 
-            //  ВАШ КОД ЗДЕСЬ
-            if (!Char.IsDigit(keyChar))
-            {
-                Console.WriteLine("Ошибка ввода, введите число");
-            }
-            else
-            {
-                //  переменная для хранения запроса в зависимости от введенного с консоли числа
-                IEnumerable<Contact> page = null;
 
-                //  выбираем нужное кол-во элементов для создания постраничного ввода в зависимости от запроса
-                switch (keyChar)
-                {
-                    case ('1'):
-                        page = contacts.Take(2);
-                        break;
-                    case ('2'):
-                        page = contacts.Skip(2).Take(2);
-                        break;
-                    case ('3'):
-                        page = contacts.Skip(4).Take(2);
-                        break;
-                }
-
-                //   проверим, что ввели существующий номер страницы
-                if (page == null)
-                {
-                    Console.WriteLine($"Ошибка ввода, страницы {keyChar} не существует");
-                    continue;
-                }
-
-                // вывод результата на консоль
-                foreach (var contact in page)
-                    Console.WriteLine(contact.Name + " " + contact.Phone);
-            }
-        }
+        foreach (var car in cars)
+            Console.WriteLine(car.Manufacturer);
     }
 }
-
-internal class Contact
+public class Car
 {
-    public Contact()
-    {
-    }
-
-    public string Name { get; set; }
-    public long Phone { get; set; }
+   public string Manufacturer { get; set; }
+   public string CountryCode { get; set; }
+ 
+   public Car(string manufacturer, string countryCode)
+   {
+       Manufacturer = manufacturer;
+       CountryCode = countryCode;
+   }
 }
