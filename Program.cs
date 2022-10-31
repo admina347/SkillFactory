@@ -8,12 +8,21 @@ class Program
 {
     static void Main(string[] args)
     {
-        Console.WriteLine(CountCommon("one", "two"));
+        var softwareManufacturers = new List<string>()
+        {
+            "Microsoft",
+            "Apple",
+            "Oracle"
+        };
+
+        var hardwareManufacturers = new List<string>()
+        {
+            "Apple",
+            "Samsung",
+            "Intel"
+        };
+
+        var itCompanies = hardwareManufacturers.Union(softwareManufacturers);
     }
-    static int CountCommon(string word1, string word2)
-    {
-        var amount = word1.Intersect(word2)//   ищем пересечение
- .Count(); // считаем количество
-        return amount;
-    }
+
 }
