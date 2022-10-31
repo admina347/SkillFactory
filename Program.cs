@@ -6,33 +6,41 @@ namespace module15;
 
 class Program
 {
+    //   статическая переменная для хранения данных в памяти
+    public static List<int> Numbers = new List<int>();
     static void Main(string[] args)
     {
-        var contacts = new List<Contact>()
+        while (true)
         {
-            new Contact() { Name = "Андрей", Phone = 79994500508 },
-            new Contact() { Name = "Сергей", Phone = 799990455 },
-            new Contact() { Name = "Иван", Phone = 79999675334 },
-            new Contact() { Name = "Игорь", Phone = 8884994 },
-            new Contact() { Name = "Анна", Phone = 665565656 },
-            new Contact() { Name = "Василий", Phone = 3434 }
-        };
-        var invalidContacts =
-   ( from contact in contacts // пробегаемся по контактам
-       let phoneString = contact.Phone.ToString() // сохраняем в промежуточную переменную строку номера телефона
-       where !phoneString.StartsWith('7') || phoneString.Length != 11 // выполняем выборку по условиям
-       select contact) // добавляем объект в выборку
-   .Count(); // считаем количество объектов в выборке
+            // Читаем введенный с консоли  текст
+            var input = Console.ReadLine();
+
+            // проверяем, число ли это
+            var isInteger = Int32.TryParse(input, out int inputNum);
+
+            // если не число - показываем ошибку
+            if (!isInteger)
+            {
+                Console.WriteLine();
+                Console.WriteLine("Вы ввели не число");
+            }
+            // если соответствует, запускаем обработчик
+            else
+            {
+                // добавляем в список
+                Numbers.Add(inputNum);
+
+                // выводим все критерии
+                Console.WriteLine("Число " + input + " добавлено в список.");
+                Console.WriteLine($" Всего в списке  { Numbers.Count} чисел");
+                Console.WriteLine($"Сумма:  {Numbers.Sum()}");
+                Console.WriteLine($"Наибольшее:  {Numbers.Max()}");
+                Console.WriteLine($"Наименьшее:  {Numbers.Min()}");
+                Console.WriteLine($"Среднее:  {Numbers.Average()}");
+
+                Console.WriteLine();
+            }
+        }
     }
 
-}
-
-internal class Contact
-{
-    public Contact()
-    {
-    }
-
-    public string Name { get; set; }
-    public long Phone { get; set; }
 }
