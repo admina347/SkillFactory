@@ -8,21 +8,29 @@ class Program
 {
     static void Main(string[] args)
     {
-        var softwareManufacturers = new List<string>()
-        {
-            "Microsoft",
-            "Apple",
-            "Oracle"
-        };
+        Console.WriteLine("Введите текст:");
 
-        var hardwareManufacturers = new List<string>()
-        {
-            "Apple",
-            "Samsung",
-            "Intel"
-        };
+        // читаем ввод
+        var text = Console.ReadLine();
 
-        var itCompanies = hardwareManufacturers.Union(softwareManufacturers);
+        // сохраняем список знаков препинания и символ пробела в коллекцию
+        var punctuation = new List<char>() { ' ', ',', '.', ';', ':', '!', '?' };
+
+        // валидация ввода
+        if (string.IsNullOrEmpty(text))
+        {
+            Console.WriteLine("Вы ввели пустой текст");
+            return;
+        }
+
+        Console.WriteLine();
+        Console.WriteLine("Текст без знаков препинания: ");
+
+        // так как строка - это массив char, мы можем вызвать метод  except  и удалить знаки препинания
+        var noPunctuation = text.Except(punctuation).ToArray();
+
+        // вывод
+        Console.WriteLine(noPunctuation);
     }
 
 }
