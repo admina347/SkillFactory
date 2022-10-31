@@ -8,29 +8,18 @@ class Program
 {
     static void Main(string[] args)
     {
-        Console.WriteLine("Введите текст:");
-
-        // читаем ввод
-        var text = Console.ReadLine();
-
-        // сохраняем список знаков препинания и символ пробела в коллекцию
-        var punctuation = new List<char>() { ' ', ',', '.', ';', ':', '!', '?' };
-
-        // валидация ввода
-        if (string.IsNullOrEmpty(text))
+        static long Factorial(int number)
         {
-            Console.WriteLine("Вы ввели пустой текст");
-            return;
+            // Коллекция для хранения чисел
+            var numbers = new List<int>();
+
+            // Добавляем все числа от 1 до n в коллекцию
+            for (int i = 1; i <= number; i++)
+                numbers.Add(i);
+
+            // Выполняем агрегацию
+            return numbers.Aggregate((x, y) => x * y);
         }
-
-        Console.WriteLine();
-        Console.WriteLine("Текст без знаков препинания: ");
-
-        // так как строка - это массив char, мы можем вызвать метод  except  и удалить знаки препинания
-        var noPunctuation = text.Except(punctuation).ToArray();
-
-        // вывод
-        Console.WriteLine(noPunctuation);
     }
 
 }
