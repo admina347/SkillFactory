@@ -23,20 +23,25 @@ class Program
             new Employee() { DepartmentId = 2, Name = "Виктор ", Id = 3},
             new Employee() { DepartmentId = 3, Name = "Альберт ", Id = 4},
         };
-        var result2 = employees.Join(departments, // передаем в качестве параметра вторую коллекцию
-            emp => emp.DepartmentId, // указываем общее свойство для первой коллекции
+        var result2 = departments.GroupJoin(employees, // передаем в качестве параметра вторую коллекцию
             dep => dep.Id, // указываем общее свойство для второй коллекции
-            (emp, dep) =>
+            emp => emp.DepartmentId, // указываем общее свойство для первой коллекции
+            (d, emps) =>
             new // проекция в новый тип
             {
-                Name = emp.Name,
-                DepName = dep.Name
+                DepName = d.Name,
+                Emps = emps.Select(d => d.Name)
             });
 
         // Вывод:
-        foreach (var em in result2)
+        foreach (var team in result2)
         {
-            Console.WriteLine(em.Name + ": " + em.DepName);
+            Console.WriteLine(team.DepName + ":");
+
+            foreach (string em in team.Emps)
+                Console.WriteLine(em);
+
+            Console.WriteLine();
         }
 
     }
