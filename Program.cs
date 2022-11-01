@@ -10,55 +10,56 @@ class Program
     public static List<int> Numbers = new List<int>();
     static void Main(string[] args)
     {
-        var phoneBook = new List<Contact>();
-
-        // добавляем контакты
-        phoneBook.Add(new Contact("Игорь", 79990000001, "igor@example.com"));
-        phoneBook.Add(new Contact("Сергей", 79990000010, "serge@example.com"));
-        phoneBook.Add(new Contact("Анатолий", 79990000011, "anatoly@example.com"));
-        phoneBook.Add(new Contact("Валерий", 79990000012, "valera@example.com"));
-        phoneBook.Add(new Contact("Сергей", 799900000013, "serg@gmail.com"));
-        phoneBook.Add(new Contact("Иннокентий", 799900000013, "innokentii@example.com"));
-
-        //  в качестве критерия группировки передаем домен адреса электронной почты
-        var grouped = phoneBook.GroupBy(c => c.Email.Split("@").Last());
-
-        // обрабатываем получившиеся группы
-        foreach (var group in grouped)
+        var departments = new List<Department>()
         {
-            // если ключ содержит example, значит, это фейк
-            if (group.Key.Contains("example"))
+            new Department() {Id = 1, Name = "Программирование"},
+            new Department() {Id = 2, Name = "Продажи"}
+        };
+
+        var employees = new List<Employee>()
+        {
+            new Employee() { DepartmentId = 1, Name = "Инна", Id = 1},
+            new Employee() { DepartmentId = 1, Name = "Андрей", Id = 2},
+            new Employee() { DepartmentId = 2, Name = "Виктор ", Id = 3},
+            new Employee() { DepartmentId = 3, Name = "Альберт ", Id = 4},
+        };
+        var result2 = employees.Join(departments, // передаем в качестве параметра вторую коллекцию
+            emp => emp.DepartmentId, // указываем общее свойство для первой коллекции
+            dep => dep.Id, // указываем общее свойство для второй коллекции
+            (emp, dep) =>
+            new // проекция в новый тип
             {
-                Console.WriteLine("Фейковые адреса: ");
+                Name = emp.Name,
+                DepName = dep.Name
+            });
 
-                foreach (var contact in group)
-                    Console.WriteLine(contact.Name + " " + contact.Email);
-
-            }
-            else
-            {
-                Console.WriteLine("Реальные адреса: ");
-                foreach (var contact in group)
-                    Console.WriteLine(contact.Name + " " + contact.Email);
-            }
-
-            Console.WriteLine();
+        // Вывод:
+        foreach (var em in result2)
+        {
+            Console.WriteLine(em.Name + ": " + em.DepName);
         }
 
     }
 
 }
 
-public class Contact
+internal class Employee
 {
-    public string Name;
-    long v2;
-    public string Email;
-
-    public Contact(string Name, long v2, string Email)
+    public Employee()
     {
-        this.Name = Name;
-        this.v2 = v2;
-        this.Email = Email;
     }
+
+    public int DepartmentId { get; set; }
+    public string Name { get; set; }
+    public int Id { get; set; }
+}
+
+internal class Department
+{
+    public Department()
+    {
+    }
+
+    public int Id { get; set; }
+    public string Name { get; set; }
 }
