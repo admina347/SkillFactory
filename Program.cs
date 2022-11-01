@@ -2,40 +2,49 @@
 using System.Collections.Generic;
 using System.Linq;
 
-namespace module15;
+//Есть список учеников школы с разбивкой по классам:
+//Напишите метод, который соберет всех учеников всех классов в один список, используя LINQ.
 
-class Program
+namespace Task1
 {
-    static void Main(string[] args)
+    class Program
     {
-        /* //  Подготовим тестовые данные
-        var names = new List<string>() { "Вася", "Вова", "Петя", "Андрей" };
+        static void Main(string[] args)
+        {
+            var classes = new[]
+            {
+               new Classroom { Students = {"Evgeniy", "Sergey", "Andrew"}, },
+               new Classroom { Students = {"Anna", "Viktor", "Vladimir"}, },
+               new Classroom { Students = {"Bulat", "Alex", "Galina"}, }
+           };
+            var allStudents = GetAllStudents(classes);
 
-        // Подготовим тестовую выборку (без ToArray())
-        var experiment = names.Where(name => name.StartsWith("В"));
+            Console.WriteLine(string.Join(" ", allStudents));
+        }
 
-        // уберем несколько элементов уже после выборки (если она выполняется отложено, то они в неё не попадут)
-        names.Remove("Вася");
-        names.Remove("Вова");
+        static string[] GetAllStudents(Classroom[] classes)
+        {
+            // ???
+            IEnumerable<string> names = classes.SelectMany(cl => cl.Students)
+                .OrderBy(s => s);   // => new { st => st.Students};
+                                                                                // проекция в анонимный тип
+            // выборка имен в строки
+            //var names = classes.SelectMany(c => c.Students);
+            /* Console.WriteLine(names.Count());
+            foreach (string stud in names)
+            {
+                Console.WriteLine(stud);
+            } */
 
-        // обратимся к выборке в цикле foreach
-        foreach (var word in experiment)
-            Console.WriteLine(word); */
+            //var res = array.Select((str, ind) => new { str, ind }).
+            //Where(a => items.Contains(a.str)).FirstOrDefault();
+            //var letters = new string[] { "A", "B", "C", "D", "E" };
+            return (string[])names.ToArray();
+        }
 
-        //  Снова возьмем те же тестовые данные
-        var names = new List<string>() { "Вася", "Вова", "Петя", "Андрей" };
-
-        // Теперь добавим ToArray() в конце того же самого LINQ-запроса
-        var experiment = names.Where(name => name.StartsWith("В")).ToArray();
-
-        // Также уберем несколько элементов
-        names.Remove("Вася");
-        names.Remove("Вова");
-
-        // обратимся к выборку в цикле foreach
-        foreach (var word in experiment)
-            Console.WriteLine(word);
-
+        public class Classroom
+        {
+            public List<string> Students = new List<string>();
+        }
     }
-
 }
